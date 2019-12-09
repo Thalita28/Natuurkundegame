@@ -556,6 +556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5886359366778401912}
   - component: {fileID: 3486571636926290214}
+  - component: {fileID: 6413697599886176008}
   - component: {fileID: 1956070004804692494}
   m_Layer: 0
   m_Name: PlayerShip1
@@ -592,12 +593,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7488313485844563563}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ca6612e7d853a4468f4ad266de4b15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RotateControls: 0
+  MotionFeedback: {fileID: 0}
+--- !u!114 &6413697599886176008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488313485844563563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0211462eaa304dc48a0eaaf9e4743cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotateControls: 0
+  MotionFeedback: {fileID: 0}
+  thruster_Newton: 300
+  front_thruster_Newton: 500
+  rotate_speed: 0.5
 --- !u!54 &1956070004804692494
 Rigidbody:
   m_ObjectHideFlags: 0
