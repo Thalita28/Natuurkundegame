@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
     public bool RotateControls;
+    public bool ForceControls;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,21 +14,24 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (ForceControls == true)
         {
-            rb.AddRelativeForce(Vector3.forward * 5000, ForceMode.Impulse);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            rb.AddRelativeForce(Vector3.back * 5000, ForceMode.Impulse);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            rb.AddRelativeForce(Vector3.left * 5000, ForceMode.Impulse);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            rb.AddRelativeForce(Vector3.right * 5000, ForceMode.Impulse);
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                rb.AddRelativeForce(Vector3.forward * 5000, ForceMode.Impulse);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                rb.AddRelativeForce(Vector3.back * 5000, ForceMode.Impulse);
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                rb.AddRelativeForce(Vector3.left * 5000, ForceMode.Impulse);
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                rb.AddRelativeForce(Vector3.right * 5000, ForceMode.Impulse);
+            }
         }
 
         if (RotateControls == true)
