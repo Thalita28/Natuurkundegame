@@ -1,7 +1,9 @@
-﻿using TMPro;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class PlayerMovement : MonoBehaviour
+public class Playermovement2 : MonoBehaviour
 {
     private Rigidbody rb;
     public bool RotateControls;
@@ -9,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private int fuel_used;
     private float start_time;
     private float elapsed_time;
+    public float thruster_Newton;
+    public float front_thruster_Newton;
+    public float rotate_speed;
 
     void Start()
     {
@@ -21,43 +26,45 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         var move_vec = rb.velocity;
+        float player_speed_x = rb.velocity.x;
+        float player_speed_z = rb.velocity.z;
 
-        if(start_time != 0)
+        if (start_time != 0)
         {
             elapsed_time = Time.time - start_time;
         }
 
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + fuel_used + "\nTime on Course: " + elapsed_time;
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            rb.AddRelativeForce(Vector3.forward * 5000, ForceMode.Impulse);
+            rb.AddRelativeForce(Vector3.forward * front_thruster_Newton, ForceMode.Impulse);
             fuel_used++;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
-            rb.AddRelativeForce(Vector3.back * 5000, ForceMode.Impulse);
+            rb.AddRelativeForce(Vector3.back * thruster_Newton, ForceMode.Impulse);
             fuel_used++;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            rb.AddRelativeForce(Vector3.left * 5000, ForceMode.Impulse);
+            rb.AddRelativeForce(Vector3.left * thruster_Newton, ForceMode.Impulse);
             fuel_used++;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
-            rb.AddRelativeForce(Vector3.right * 5000, ForceMode.Impulse);
+            rb.AddRelativeForce(Vector3.right * thruster_Newton, ForceMode.Impulse);
             fuel_used++;
         }
 
         if (RotateControls == true)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKey(KeyCode.E))
             {
-                transform.Rotate(0.0f, 5.0f, 0.0f, Space.Self);
+                transform.Rotate(0.0f, rotate_speed, 0.0f, Space.Self);
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKey(KeyCode.Q))
             {
-                transform.Rotate(0.0f, -5.0f, 0.0f, Space.Self);
+                transform.Rotate(0.0f, -rotate_speed, 0.0f, Space.Self);
             }
         }
     }
@@ -68,10 +75,10 @@ public class PlayerMovement : MonoBehaviour
         {
             start_time = Time.time;
         }
-        if( other.CompareTag("Finish"))
+        if (other.CompareTag("Finish"))
         {
             start_time = 0;
         }
-       
+
     }
 }
