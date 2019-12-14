@@ -14,6 +14,8 @@ public class Playermovement2 : MonoBehaviour
     public float thruster_Newton;
     public float front_thruster_Newton;
     public float rotate_speed;
+    public static float playerSpeedX;
+    public static float playerSpeedZ;
 
     void Start()
     {
@@ -21,13 +23,14 @@ public class Playermovement2 : MonoBehaviour
         fuel_used = 0;
         elapsed_time = 0;
         rb = GetComponent<Rigidbody>();
+ 
     }
 
-    void Update()
+    public void Update()
     {
         var move_vec = rb.velocity;
-        float player_speed_x = rb.velocity.x;
-        float player_speed_z = rb.velocity.z;
+        float playerSpeedX = rb.velocity.x;
+        float playerSpeedZ = rb.velocity.z;
 
         if (start_time != 0)
         {
