@@ -8,56 +8,33 @@ public class Playermovement2 : MonoBehaviour
     private Rigidbody rb;
     public bool RotateControls;
     public TextMeshProUGUI MotionFeedback;
-    private int fuel_used;
-    private float start_time;
-    private float elapsed_time;
+    private int FuelUsedScaled;
     public float thruster_Newton;
-    public float front_thruster_Newton;
     public float rotate_speed;
     public static float playerSpeedX;
     public static float playerSpeedZ;
+    private float FuelUsed = 0.0f; 
 
-    void Start()
+     void Start()
     {
-        start_time = 0;
-        fuel_used = 0;
-        elapsed_time = 0;
+        FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
- 
     }
 
     public void Update()
     {
         var move_vec = rb.velocity;
-        float playerSpeedX = rb.velocity.x;
-        float playerSpeedZ = rb.velocity.z;
+        MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
 
-        if (start_time != 0)
-        {
-            elapsed_time = Time.time - start_time;
-        }
+        float ZAxisMovement = Input.GetAxis("Vertical");
+        float XAxisMovement = Input.GetAxis("Horizontal");
 
-        MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + fuel_used + "\nTime on Course: " + elapsed_time;
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.AddRelativeForce(Vector3.forward * front_thruster_Newton, ForceMode.Impulse);
-            fuel_used++;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.AddRelativeForce(Vector3.back * thruster_Newton, ForceMode.Impulse);
-            fuel_used++;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.AddRelativeForce(Vector3.left * thruster_Newton, ForceMode.Impulse);
-            fuel_used++;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.AddRelativeForce(Vector3.right * thruster_Newton, ForceMode.Impulse);
-            fuel_used++;
-        }
+        rb.AddRelativeForce(Vector3.forward * ZAxisMovement * thruster_Newton, ForceMode.Impulse);
+        FuelUsed += Mathf.Abs((int)(ZAxisMovement * thruster_Newton));
+
+        rb.AddRelativeForce(Vector3.right * XAxisMovement * thruster_Newton, ForceMode.Impulse);
+        FuelUsed += Mathf.Abs((int)(XAxisMovement * thruster_Newton));
+
 
         if (RotateControls == true)
         {
@@ -70,18 +47,5 @@ public class Playermovement2 : MonoBehaviour
                 transform.Rotate(0.0f, -rotate_speed, 0.0f, Space.Self);
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Start"))
-        {
-            start_time = Time.time;
-        }
-        if (other.CompareTag("Finish"))
-        {
-            start_time = 0;
-        }
-
     }
 }

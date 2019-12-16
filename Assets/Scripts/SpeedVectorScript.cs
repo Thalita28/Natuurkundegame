@@ -28,7 +28,7 @@ public class SpeedVectorScript : MonoBehaviour
 
         if (PositivePlayerSpeedZ > 0.0f)
         {
-            PositiveSpeedZ.transform.localScale = new Vector3(1, PositivePlayerSpeedZ,1);
+            PositiveSpeedZ.transform.localScale = new Vector3(1, PositivePlayerSpeedZ ,1);
         }
         else
         {         
@@ -44,7 +44,7 @@ public class SpeedVectorScript : MonoBehaviour
         }
         if (PositivePlayerSpeedX > 0.0f)
         {
-            PositiveSpeedX.transform.localScale = new Vector3(PositivePlayerSpeedX, 1, 1);
+            PositiveSpeedX.transform.localScale = new Vector3(PositivePlayerSpeedX,1, 1);
         }
         else
         {
@@ -52,7 +52,7 @@ public class SpeedVectorScript : MonoBehaviour
         }
         if (NegativePlayerSpeedX < 0.0f)
         {
-            NegativeSpeedX.transform.localScale = new Vector3(-NegativePlayerSpeedX, 1, 1);
+            NegativeSpeedX.transform.localScale = new Vector3(-NegativePlayerSpeedX,1,  1);
         }
         else
         {
