@@ -9,7 +9,10 @@ public class SpeedVectorScript : MonoBehaviour
     public GameObject NegativeSpeedZ;
     public GameObject PositiveSpeedX;
     public GameObject NegativeSpeedX;
-    public int GageScale;
+    public GameObject SpeedGaugeScreen;
+    public GameObject SpeedGaugeTrim;
+    public Material SpeedGaugeTrimmaterial;
+    public int GageScale; //gelijk aan MaxSpeed
 
     private void Start()
     {
@@ -17,8 +20,15 @@ public class SpeedVectorScript : MonoBehaviour
         NegativeSpeedZ.transform.localScale = new Vector3(0, 0, 0);
         PositiveSpeedX.transform.localScale = new Vector3(0, 0, 0);
         NegativeSpeedX.transform.localScale = new Vector3(0, 0, 0);
+        SpeedGaugeScreen.transform.localScale = new Vector3(1, 1, 1);
     }
-    void Update()
+
+    private void LateUpdate()
+    {
+        SpeedVector();
+    }
+    
+    private void SpeedVector()
     {
         Rigidbody playerShipRB = PlayerShip.GetComponent<Rigidbody>();
         float PositivePlayerSpeedZ = playerShipRB.velocity.z / GageScale;
@@ -28,10 +38,10 @@ public class SpeedVectorScript : MonoBehaviour
 
         if (PositivePlayerSpeedZ > 0.0f)
         {
-            PositiveSpeedZ.transform.localScale = new Vector3(1, PositivePlayerSpeedZ ,1);
+            PositiveSpeedZ.transform.localScale = new Vector3(1, PositivePlayerSpeedZ, 1);
         }
         else
-        {         
+        {
             PositiveSpeedZ.transform.localScale = new Vector3(0, 0, 0);
         }
         if (NegativePlayerSpeedZ < 0.0f)
@@ -44,7 +54,7 @@ public class SpeedVectorScript : MonoBehaviour
         }
         if (PositivePlayerSpeedX > 0.0f)
         {
-            PositiveSpeedX.transform.localScale = new Vector3(PositivePlayerSpeedX,1, 1);
+            PositiveSpeedX.transform.localScale = new Vector3(PositivePlayerSpeedX, 1, 1);
         }
         else
         {
@@ -52,15 +62,11 @@ public class SpeedVectorScript : MonoBehaviour
         }
         if (NegativePlayerSpeedX < 0.0f)
         {
-            NegativeSpeedX.transform.localScale = new Vector3(-NegativePlayerSpeedX,1,  1);
+            NegativeSpeedX.transform.localScale = new Vector3(-NegativePlayerSpeedX, 1, 1);
         }
         else
         {
             NegativeSpeedX.transform.localScale = new Vector3(0, 0, 0);
         }
-
-
-
     }
-
 }

@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 8cbe533e036cef448aa18d709b96bca1, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d732fc9cae907af4cb61ff51c356bd88, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.03738693, g: 0.1429843, b: 0.14745307, a: 1}
+  m_IndirectSpecularColor: {r: 0.037103925, g: 0.14300975, b: 0.14746866, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -299,7 +299,7 @@ PrefabInstance:
     - target: {fileID: 1956070004804692494, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
       propertyPath: m_Constraints
-      value: 20
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
@@ -310,6 +310,16 @@ PrefabInstance:
         type: 3}
       propertyPath: thruster_Newton
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
+        type: 3}
+      propertyPath: ThrusterPower
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
+        type: 3}
+      propertyPath: RotateSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3486571636926290214, guid: 2337822c56164394381f337a147ff46e, type: 3}
@@ -391,13 +401,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.60876137, y: 0, z: 0, w: 0.7933534}
-  m_LocalPosition: {x: 0, y: 179.71, z: 45.7}
+  m_LocalRotation: {x: 0.5008675, y: -0, z: -0, w: 0.86552405}
+  m_LocalPosition: {x: 0, y: 300, z: -33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 75, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60.115, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,5 +718,50 @@ PrefabInstance:
       propertyPath: PlayerShip
       value: 
       objectReference: {fileID: 651570423}
+    - target: {fileID: 6366484894165337116, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 963194227}
+    - target: {fileID: 6366484894165337116, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366484894165337117, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366484894165337117, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366484894165337117, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366484894165337117, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366484894442712795, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -229
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366484894442712795, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366484894442712795, guid: dce4d447106fd7c4f810d478e957fa9a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -470
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce4d447106fd7c4f810d478e957fa9a, type: 3}

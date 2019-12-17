@@ -6,16 +6,15 @@ using TMPro;
 public class Playermovement2 : MonoBehaviour
 {
     private Rigidbody rb;
-    public bool RotateControls;
     public TextMeshProUGUI MotionFeedback;
-    private int FuelUsedScaled;
-    public float thruster_Newton;
-    public float rotate_speed;
-    public static float playerSpeedX;
-    public static float playerSpeedZ;
-    private float FuelUsed = 0.0f; 
 
-     void Start()
+    public bool RotateControls;
+    public float ThrusterPower;
+    public float RotateSpeed;
+    public float FuelUsed = 0.0f;
+    public float MaxSpeed = 20.0f;
+
+    void Start()
     {
         FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
@@ -23,28 +22,47 @@ public class Playermovement2 : MonoBehaviour
 
     public void Update()
     {
+        Movement();
         var move_vec = rb.velocity;
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
+    }
 
+    private void Movement()
+    {
         float ZAxisMovement = Input.GetAxis("Vertical");
         float XAxisMovement = Input.GetAxis("Horizontal");
 
-        rb.AddRelativeForce(Vector3.forward * ZAxisMovement * thruster_Newton, ForceMode.Impulse);
-        FuelUsed += Mathf.Abs((int)(ZAxisMovement * thruster_Newton));
+        if (rb.velocity.x > MaxSpeed && XAxisMovement > 0)
+        {
+            XAxisMovement = 0;
+        }
+        else if (rb.velocity.x < -MaxSpeed && XAxisMovement < 0)
+        {
+            XAxisMovement = 0;
+        }
+        if (rb.velocity.z > MaxSpeed && ZAxisMovement > 0)
+        {
+            ZAxisMovement = 0;
+        }
+        else if (rb.velocity.z < -MaxSpeed && ZAxisMovement < 0)
+        {
+            ZAxisMovement = 0;
+        }
 
-        rb.AddRelativeForce(Vector3.right * XAxisMovement * thruster_Newton, ForceMode.Impulse);
-        FuelUsed += Mathf.Abs((int)(XAxisMovement * thruster_Newton));
-
+        rb.AddForce(Vector3.forward * ZAxisMovement * ThrusterPower, ForceMode.Impulse);
+        FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
+        rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
+        FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
 
         if (RotateControls == true)
         {
             if (Input.GetKey(KeyCode.E))
             {
-                transform.Rotate(0.0f, rotate_speed, 0.0f, Space.Self);
+                transform.Rotate(0.0f, RotateSpeed, 0.0f, Space.Self);
             }
             if (Input.GetKey(KeyCode.Q))
             {
-                transform.Rotate(0.0f, -rotate_speed, 0.0f, Space.Self);
+                transform.Rotate(0.0f, -RotateSpeed, 0.0f, Space.Self);
             }
         }
     }
