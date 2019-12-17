@@ -6,27 +6,13 @@ using UnityEngine;
 public class HangerShopMenuExecute : MonoBehaviour
 {
 
-    [SerializeField] int index;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 
 
-    void ButtonPressed()
-    {
-
-        if (index == 4)
-        {
+    public void BackToMainMenu()
+    {  
             SceneManager.LoadScene("MissionMenu");
-        }
 
     }
 }
