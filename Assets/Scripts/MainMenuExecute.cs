@@ -6,13 +6,23 @@ using UnityEngine;
 public class MainMenuExecute : MonoBehaviour
 {
 
-    [SerializeField] int index;
-    // Start is called before the first frame update
 
-    public void ButtonPressed()
+    public void StartGame()
     {
-        if (index == 0) SceneManager.LoadScene("MissionMenu");
-        else if (index == 2) Application.Quit();
+        SceneManager.LoadScene("MissionMenu");
 
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+    }
+
+    public void Options()
+    {
+        Debug.Log("Open options");
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 }

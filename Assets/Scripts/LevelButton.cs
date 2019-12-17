@@ -6,59 +6,31 @@ using UnityEngine;
 public class LevelButton : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] LevelButtonManager levelButtonManager;
+    [SerializeField] int blockIndex;
     [SerializeField] int thisIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        
-    
+       
+       // if (thisIndex <= PlayerPrefs.GetInt("levelProgress" + blockIndex, 3)) animator.SetBool("start", true);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if (!animator.GetBool("start"))
-        {
-            if (thisIndex <= PlayerPrefs.GetInt("levelProgress" + levelButtonManager.MenuIndex, 1)) animator.SetBool("start", true);
-        }
-
-        if (levelButtonManager.index == thisIndex)
-        {
-            if (!animator.GetBool("pressed")) animator.SetBool("selected", true);
-
-            if (Input.GetAxis("Submit") == 1)
-            {
-                Debug.Log("ALLOW SCROL = FALSE");
-                animator.SetBool("pressed", true);
-
-
-            }
-            else if (animator.GetBool("pressed"))
-            {
-                animator.SetBool("pressed", false);
-            }
-
-        }
-        else animator.SetBool("selected", false);
+        animator = GetComponent<Animator>();
+        if (thisIndex <= PlayerPrefs.GetInt("levelProgress" + blockIndex, 3)) animator.SetBool("start", true);
     }
+    // Update is called once per frame  
 
     public void StartLevelx()
     {
-        //SceneManager.LoadScene("Level_" + thisIndex);
-        Debug.Log("Starting Level_" + thisIndex);
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("wait"))
+        {
+            SceneManager.LoadScene("Level_" + blockIndex + "_" + thisIndex);
+            Debug.Log("Starting Level_" + blockIndex + "_" + thisIndex);
+        }
     }
-
-
-    public void ReturnToMenu()
-    {
-        animator.SetTrigger("exitPressed");
-    }
-
-
-
 
 
 }

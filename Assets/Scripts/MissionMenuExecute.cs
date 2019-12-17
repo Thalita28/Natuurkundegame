@@ -6,53 +6,74 @@ using UnityEngine;
 
 public class MissionMenuExecute : MonoBehaviour
 {
-    [SerializeField] int index;
     private GameObject inputField;
-    public GameObject levelMenu;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject canvas;
+    public GameObject[] levelMenu;
+    public GameObject InputField;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    void ButtonPressed()
+
+
+    public void EditPlayerName()
     {
        
-        switch(index)
-        {
-            case 0:
-                foreach (Transform child in transform)
-                {
-                    if (child.tag == "input")
-                    {
-                        inputField = child.gameObject;
-                        inputField.SetActive(true);
-                        EventSystem.current.SetSelectedGameObject(inputField);
-
-                    }
-
-                }
-                break;
-            case 1: case 2: case 3:
-                levelMenu.SetActive(true); break;
-            case 4:
-                SceneManager.LoadScene("HangerShop"); break;
-            case 5:
-                SceneManager.LoadScene("MainMenu"); break;
-        }
-     
+        InputField.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(InputField);
+ 
     }
+
+    public void OpenLevelMenu0()
+    {
+        bool menuState = levelMenu[0].activeSelf;
+        levelMenu[0].SetActive(!menuState);
+
+        if (levelMenu[1].activeSelf) levelMenu[1].SetActive(false);
+        if (levelMenu[2].activeSelf) levelMenu[2].SetActive(false);
+
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+    }
+
+    public void OpenLevelMenu1()
+    {
+        bool menuState = levelMenu[1].activeSelf;
+        levelMenu[1].SetActive(!menuState);
+
+        if (levelMenu[0].activeSelf) levelMenu[0].SetActive(false);
+        if (levelMenu[2].activeSelf) levelMenu[2].SetActive(false);
+
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+    }
+
+    public void OpenLevelMenu2()
+    {
+        bool menuState = levelMenu[2].activeSelf;
+        levelMenu[2].SetActive(!menuState);
+
+        if (levelMenu[1].activeSelf) levelMenu[1].SetActive(false);
+        if (levelMenu[0].activeSelf) levelMenu[0].SetActive(false);
+
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+    }
+
+    public void ToShipHanger()
+    {
+        SceneManager.LoadScene("HangerShop");
+    }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu"); 
+    }
+
 
     public void NameEditExit()
     {
-        inputField.SetActive(false);
+        InputField.SetActive(false);
     }
+
+
 
 
 }
