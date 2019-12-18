@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Start
+  - input
+  - menu0
+  - menu1
+  - menu2
   layers:
   - Default
   - TransparentFX
