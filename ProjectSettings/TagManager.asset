@@ -9,6 +9,9 @@ TagManager:
   - menu0
   - menu1
   - menu2
+  - MissionObject
+  - FinishTrigger
+  - LevelBoundry
   layers:
   - Default
   - TransparentFX
