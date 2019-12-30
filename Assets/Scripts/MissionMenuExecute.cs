@@ -11,9 +11,6 @@ public class MissionMenuExecute : MonoBehaviour
     public GameObject[] levelMenu;
     public GameObject InputField;
 
-
-
-
     public void EditPlayerName()
     {
        
