@@ -8,6 +8,8 @@ public class Playermovement2 : MonoBehaviour
     private Rigidbody rb;
     public TextMeshProUGUI MotionFeedback;
 
+    private bool checkingForStop;
+    private float stopTimer;
     public bool RotateControls;
     public float ThrusterPower;
     public float RotateSpeed;
@@ -16,6 +18,7 @@ public class Playermovement2 : MonoBehaviour
 
     void Start()
     {
+        checkingForStop = false;
         FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
     }
@@ -23,8 +26,28 @@ public class Playermovement2 : MonoBehaviour
     public void Update()
     {
         Movement();
+        CheckForCompleteStop();
         var move_vec = rb.velocity;
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
+
+        
+
+    }
+
+    private void CheckForCompleteStop()
+    {
+        if(rb.velocity.magnitude < 0.5 && rb.velocity.magnitude != 0 && !checkingForStop)
+        {
+            stopTimer = Time.time;
+            checkingForStop = true;
+        }
+
+        if (checkingForStop && rb.velocity.magnitude < 0.5 && Time.time - stopTimer > 0.5)
+        {
+            rb.velocity = Vector3.zero;
+            checkingForStop = false;
+        }
+
     }
 
     private void Movement()
