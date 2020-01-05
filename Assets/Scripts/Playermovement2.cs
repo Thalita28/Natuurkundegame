@@ -11,6 +11,7 @@ public class Playermovement2 : MonoBehaviour
     private bool checkingForStop;
     private float stopTimer;
     public bool RotateControls;
+    private bool IsMoving;
     public float ThrusterPower;
     public float RotateSpeed;
     public float FuelUsed = 0.0f;
@@ -18,6 +19,7 @@ public class Playermovement2 : MonoBehaviour
 
     void Start()
     {
+        IsMoving = false;
         checkingForStop = false;
         FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
@@ -25,7 +27,7 @@ public class Playermovement2 : MonoBehaviour
 
     public void Update()
     {
-        Movement();
+        if(IsMoving) Movement();
         CheckForCompleteStop();
         var move_vec = rb.velocity;
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
@@ -72,6 +74,7 @@ public class Playermovement2 : MonoBehaviour
             ZAxisMovement = 0;
         }
 
+
         rb.AddForce(Vector3.forward * ZAxisMovement * ThrusterPower, ForceMode.Impulse);
         FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
         rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
@@ -88,5 +91,16 @@ public class Playermovement2 : MonoBehaviour
                 transform.Rotate(0.0f, -RotateSpeed, 0.0f, Space.Self);
             }
         }
+    }
+
+
+    public void allowMovement()
+    {
+        IsMoving = true;
+    }
+
+    public void denyMovement()
+    {
+        IsMoving = false;
     }
 }
