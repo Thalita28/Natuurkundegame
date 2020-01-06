@@ -9,6 +9,8 @@ public class Playermovement2 : MonoBehaviour
 {
     private Rigidbody rb;
     public TextMeshProUGUI MotionFeedback;
+    public TextMeshProUGUI FuelText;
+    public TextMeshProUGUI Speed;
     public Transform FuelBar;
     public UnityEvent PlayerFail;
     public RawImage FuelBarSprite;
@@ -43,7 +45,7 @@ public class Playermovement2 : MonoBehaviour
         CheckForCompleteStop();
         var move_vec = rb.velocity;
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
-
+        Speed.text = "Snelheid: " + (int)move_vec.magnitude;
 
 
     }
@@ -133,6 +135,7 @@ public class Playermovement2 : MonoBehaviour
         var green = Mathf.Clamp((FuelBarLeft)* 510, 0, 255);
 
         FuelBarSprite.color = new Color(red/255, green/255, 0);
+        FuelText.text = (int)(StartingFuel -FuelUsed)/100 + "/\n" + (int)StartingFuel/100;
     }
 
     private void Failed()
