@@ -12,6 +12,7 @@ TagManager:
   - MissionObject
   - FinishTrigger
   - LevelBoundry
+  - fuelbarsprite
   layers:
   - Default
   - TransparentFX

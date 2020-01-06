@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
 
-public class Level_0_1_functions : MonoBehaviour
+public class Level_0_2_functions : MonoBehaviour
 {
     public GameObject panel;
     public GameObject player;
@@ -12,25 +12,30 @@ public class Level_0_1_functions : MonoBehaviour
     public TextMeshProUGUI missionText;
     public TextMeshProUGUI panelText;
     public GameObject[] Buttons;
-
+    public GameObject[] targets;
+    public Material ActiveTarget;
+    private int path;
+    private Renderer targetRend;
 
     // Start is called before the first frame update
     void Start()
     {
+         Buttons[0].SetActive(true);
+         Buttons[1].SetActive(false);
+         Buttons[2].SetActive(false);
+         Buttons[3].SetActive(false);
+         Buttons[4].SetActive(false);
+        path = 0;
 
-        Buttons[0].SetActive(true);
-        Buttons[1].SetActive(false);
-        Buttons[2].SetActive(false);
-        Buttons[3].SetActive(false);
-        Buttons[4].SetActive(false);
+
         rbPlayer = player.GetComponent<Rigidbody>();
-        
+        targetRend = targets[1].GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void EndLevel(int IsCompleted)
@@ -44,23 +49,24 @@ public class Level_0_1_functions : MonoBehaviour
         }
         else if (IsCompleted == 1)
         {
-            if (PlayerPrefs.GetInt("levelProgress0") == 1) PlayerPrefs.SetInt("levelProgress0", 2);
+            if (PlayerPrefs.GetInt("levelProgress0") == 2) PlayerPrefs.SetInt("levelProgress0", 3);
             SceneManager.LoadScene("MissionMenu");
         }
         else if (IsCompleted == 2)
         {
-            if (PlayerPrefs.GetInt("levelProgress0") == 1) PlayerPrefs.SetInt("levelProgress0", 2);
+            if (PlayerPrefs.GetInt("levelProgress0") == 2) PlayerPrefs.SetInt("levelProgress0", 3);
+            SceneManager.LoadScene("Level_0_3");
+        }
+        else if(IsCompleted == 3)
+        {
             SceneManager.LoadScene("Level_0_2");
         }
-        else if (IsCompleted == 3)
-        {
-            SceneManager.LoadScene("Level_0_1");
-        }
+
     }
 
     public void PlayerOnTarget()
     {
-        if (rbPlayer.velocity.magnitude == 0)
+        if (rbPlayer.velocity.magnitude == 0 && path == 1)
         {
             panelText.text = "SUPER NICE MAN, LEKKER GEDAAN";
             Buttons[0].SetActive(false);
@@ -77,9 +83,11 @@ public class Level_0_1_functions : MonoBehaviour
         panel.SetActive(false);
     }
 
-    public void halfWayUpdate()
+    public void HalfwayCheckpoint()
     {
-        missionText.text = "Vergeet niet optijd te remmen!";
+        path = 1;
+        targets[0].SetActive(false);
+        targetRend.material = ActiveTarget;
     }
 
     public void LevelFail()
