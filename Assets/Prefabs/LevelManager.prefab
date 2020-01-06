@@ -48,6 +48,8 @@ MonoBehaviour:
   panel: {fileID: 0}
   player: {fileID: 0}
   missionText: {fileID: 0}
+  panelText: {fileID: 0}
+  Buttons: []
 --- !u!1 &6241913519501807535
 GameObject:
   m_ObjectHideFlags: 0
