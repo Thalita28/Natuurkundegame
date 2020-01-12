@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class BoundaryTrigger : MonoBehaviour
@@ -8,7 +9,8 @@ public class BoundaryTrigger : MonoBehaviour
     public GameObject warning;
     private bool IsOutOfBounds = false;
     private float timer;
-    private float interval = 10f;
+    public float interval;
+    public UnityEvent MyEvent;
 
   
 
@@ -17,7 +19,7 @@ public class BoundaryTrigger : MonoBehaviour
     {
         if(Time.time - timer > interval && IsOutOfBounds)
         {
-            Debug.Log("Do something terrible to the player");
+            MyEvent.Invoke();
         }
 
     }

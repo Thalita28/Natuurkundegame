@@ -18,8 +18,9 @@ public class LevelButton : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("levelProgress" + blockIndex + " = " + PlayerPrefs.GetInt("levelProgress0") );
         animator = GetComponent<Animator>();
-        if (thisIndex <= PlayerPrefs.GetInt("levelProgress" + blockIndex, 3)) animator.SetBool("start", true);
+        if (thisIndex <= PlayerPrefs.GetInt("levelProgress" + blockIndex, 1)) animator.SetBool("start", true);
     }
     // Update is called once per frame  
 
