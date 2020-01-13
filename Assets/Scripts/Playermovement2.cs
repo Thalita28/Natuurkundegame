@@ -1,30 +1,67 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 using TMPro;
 
 public class Playermovement2 : MonoBehaviour
 {
     private Rigidbody rb;
     public TextMeshProUGUI MotionFeedback;
+    public Transform FuelBar;
+    public UnityEvent PlayerFail;
+    public RawImage FuelBarSprite;
 
+    private bool checkingForStop;
+    private float stopTimer;
     public bool RotateControls;
+    private bool IsMoving;
     public float ThrusterPower;
     public float RotateSpeed;
     public float FuelUsed = 0.0f;
     public float MaxSpeed = 20.0f;
+    private int StartingFuel;
+    [SerializeField] int LevelFuel;
+    [SerializeField] float StoppingSpeed;
 
     void Start()
     {
+        IsMoving = false;
+        checkingForStop = false;
         FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
+        StartingFuel = LevelFuel + PlayerPrefs.GetInt("StartingFuel", 0);
+
+
     }
 
     public void Update()
     {
-        Movement();
+        if (IsMoving) Movement();
+        UpdateFuelBar();
+        CheckForCompleteStop();
         var move_vec = rb.velocity;
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
+
+
+
+    }
+
+    private void CheckForCompleteStop()
+    {
+        if (rb.velocity.magnitude < StoppingSpeed && rb.velocity.magnitude != 0 && !checkingForStop)
+        {
+            stopTimer = Time.time;
+            checkingForStop = true;
+        }
+
+        if (checkingForStop && rb.velocity.magnitude < StoppingSpeed && Time.time - stopTimer > StoppingSpeed)
+        {
+            rb.velocity = Vector3.zero;
+            checkingForStop = false;
+        }
+
     }
 
     private void Movement()
@@ -49,10 +86,13 @@ public class Playermovement2 : MonoBehaviour
             ZAxisMovement = 0;
         }
 
-        rb.AddForce(Vector3.forward * ZAxisMovement * ThrusterPower, ForceMode.Impulse);
-        FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
-        rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
-        FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
+        if (StartingFuel > FuelUsed)
+        {
+            rb.AddForce(Vector3.forward * ZAxisMovement  *ThrusterPower, ForceMode.Impulse);
+            FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
+            rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
+            FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
+        }
 
         if (RotateControls == true)
         {
@@ -65,5 +105,38 @@ public class Playermovement2 : MonoBehaviour
                 transform.Rotate(0.0f, -RotateSpeed, 0.0f, Space.Self);
             }
         }
+    }
+
+
+    public void allowMovement()
+    {
+        IsMoving = true;
+    }
+
+    public void denyMovement()
+    {
+        IsMoving = false;
+    }
+
+    public void UpdateFuelBar()
+    {
+        float FuelBarLeft = (StartingFuel - FuelUsed) / StartingFuel;
+        if (FuelBarLeft < 0)
+        {
+            FuelBarLeft = 0;
+            Invoke("Failed",5);
+        }
+    
+        FuelBar.transform.localScale = new Vector3(1, FuelBarLeft, 1);
+
+        var red = Mathf.Clamp(510-(FuelBarLeft*510), 0, 255);
+        var green = Mathf.Clamp((FuelBarLeft)* 510, 0, 255);
+
+        FuelBarSprite.color = new Color(red/255, green/255, 0);
+    }
+
+    private void Failed()
+    {
+        PlayerFail.Invoke();
     }
 }
