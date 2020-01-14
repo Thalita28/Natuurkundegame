@@ -142,4 +142,23 @@ public class Playermovement2 : MonoBehaviour
     {
         PlayerFail.Invoke();
     }
+
+
+    public void trusterUp(float UpTime)
+    {
+
+    }
+
+    public void trusterDown(float UpTime)
+    {
+
+    }
+    public void trusterRight(float UpTime)
+    {
+
+    }
+    public void trusterLeft(float UpTime)
+    {
+
+    }
 }
