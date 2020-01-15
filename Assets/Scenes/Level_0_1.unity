@@ -407,15 +407,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1956070004804692494, guid: 2337822c56164394381f337a147ff46e,
+    - target: {fileID: 3486571636926290214, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
-      propertyPath: m_Constraints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956070004804692494, guid: 2337822c56164394381f337a147ff46e,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
+      propertyPath: MotionFeedback
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
@@ -482,10 +477,15 @@ PrefabInstance:
       propertyPath: Speed
       value: 
       objectReference: {fileID: 1844825790}
-    - target: {fileID: 3486571636926290214, guid: 2337822c56164394381f337a147ff46e,
+    - target: {fileID: 1956070004804692494, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
-      propertyPath: MotionFeedback
-      value: 
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956070004804692494, guid: 2337822c56164394381f337a147ff46e,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2337822c56164394381f337a147ff46e, type: 3}
@@ -1346,6 +1346,7 @@ PrefabInstance:
       propertyPath: triggerType
       value: 1
       objectReference: {fileID: 0}
+
     - target: {fileID: 2550191598465041271, guid: 6d06cbb6c451fb14b93f3851ab1bb466,
         type: 3}
       propertyPath: m_Enabled
