@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Deck paint
-    second: {fileID: 2100000, guid: ba391814645a6494dab91e3fa2aa5856, type: 2}
+    second: {fileID: 2100000, guid: af06f35c843f39c4485c7bc199316ff9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Light paint
-    second: {fileID: 2100000, guid: 95fb0a858577e3e4a9d805401df0eebe, type: 2}
+    second: {fileID: 2100000, guid: ba391814645a6494dab91e3fa2aa5856, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Shell paint
-    second: {fileID: 2100000, guid: af06f35c843f39c4485c7bc199316ff9, type: 2}
+    second: {fileID: 2100000, guid: 95fb0a858577e3e4a9d805401df0eebe, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
