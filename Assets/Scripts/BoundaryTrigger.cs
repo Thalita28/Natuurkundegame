@@ -12,9 +12,6 @@ public class BoundaryTrigger : MonoBehaviour
     public float interval;
     public UnityEvent MyEvent;
 
-  
-
-    // Update is called once per frame
     void Update()
     {
         if(Time.time - timer > interval && IsOutOfBounds)
