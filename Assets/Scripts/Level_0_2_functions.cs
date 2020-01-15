@@ -9,27 +9,25 @@ public class Level_0_2_functions : MonoBehaviour
     public GameObject panel;
     public GameObject player;
     private Rigidbody rbPlayer;
-    public TextMeshProUGUI missionText;
+
     public TextMeshProUGUI panelText;
     
-    public GameObject[] Buttons;
+
     public GameObject[] targets;
     private int path;
-    private Renderer targetRend;
+
+    private Animator PanelAnimator;
 
     // Start is called before the first frame update
     void Start()
     {
-         Buttons[0].SetActive(true);
-         Buttons[1].SetActive(false);
-         Buttons[2].SetActive(false);
-         Buttons[3].SetActive(false);
-         Buttons[4].SetActive(false);
+        PanelAnimator = panel.GetComponent<Animator>();
+        PanelAnimator.SetTrigger("Start");
         path = 0;
 
 
         rbPlayer = player.GetComponent<Rigidbody>();
-        targetRend = targets[1].GetComponent<Renderer>();
+   
     }
 
     // Update is called once per frame
@@ -68,19 +66,18 @@ public class Level_0_2_functions : MonoBehaviour
     {
         if (rbPlayer.velocity.magnitude == 0 && path == 1)
         {
-            panelText.text = "SUPER NICE MAN, LEKKER GEDAAN";
-            Buttons[0].SetActive(false);
-            Buttons[1].SetActive(true);
-            Buttons[2].SetActive(true);
-            Buttons[3].SetActive(false);
-            Buttons[4].SetActive(false);
+            panelText.text = "Level Voltooid!";
+        
+
             panel.SetActive(true);
+            PanelAnimator.SetBool("IsHidden", false);
+            PanelAnimator.SetTrigger("Succes");
         }
     }
 
     public void closePanel()
     {
-        panel.SetActive(false);
+        HidePanel();
     }
 
     public void HalfwayCheckpoint()
@@ -91,13 +88,23 @@ public class Level_0_2_functions : MonoBehaviour
 
     public void LevelFail()
     {
-        panelText.text = "JAMMER JOH NIET GEHAALD";
-        Buttons[0].SetActive(false);
-        Buttons[1].SetActive(false);
-        Buttons[2].SetActive(false);
-        Buttons[3].SetActive(true);
-        Buttons[4].SetActive(true);
+        panelText.text = "Helaas, het moet anders kunnen!";
+   
         panel.SetActive(true);
+        PanelAnimator.SetBool("IsHidden", false);
+        PanelAnimator.SetTrigger("Fail");
+
+    }
+
+    public void HidePanel()
+    {
+        PanelAnimator.SetBool("IsHidden", true);
+
+    }
+
+    public void ShowPanel()
+    {
+        PanelAnimator.SetBool("IsHidden", false);
 
     }
 
