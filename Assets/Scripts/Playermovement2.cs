@@ -31,6 +31,9 @@ public class Playermovement2 : MonoBehaviour
     private int StartingFuel;
     [SerializeField] int LevelFuel;
     [SerializeField] float StoppingSpeed;
+    [SerializeField] bool AI = false;
+    private float ZAxisMovement;
+    private float XAxisMovement;
 
     void Start()
     {
@@ -69,8 +72,11 @@ public class Playermovement2 : MonoBehaviour
 
     private void Movement()
     {
-        float ZAxisMovement = Input.GetAxis("Vertical");
-        float XAxisMovement = Input.GetAxis("Horizontal");
+        if (!AI)
+        {
+            ZAxisMovement = Input.GetAxis("Vertical");
+            XAxisMovement = Input.GetAxis("Horizontal");
+        }
 
         if (rb.velocity.x > MaxSpeed && XAxisMovement > 0)
         {
@@ -197,19 +203,33 @@ public class Playermovement2 : MonoBehaviour
 
     public void trusterUp(float UpTime)
     {
-
+        ZAxisMovement = 1;
+        Invoke("trusterStopVertical", UpTime);
     }
 
     public void trusterDown(float UpTime)
     {
-
+        ZAxisMovement = -1;
+        Invoke("trusterStopVertical", UpTime);
     }
     public void trusterRight(float UpTime)
     {
-
+        XAxisMovement = 1;
+        Invoke("trusterStopHorizontal", UpTime);
     }
     public void trusterLeft(float UpTime)
     {
+        XAxisMovement = -1;
+        Invoke("trusterStopHorizontal", UpTime);
+    }
 
+    private void trusterStopVertical()
+    {
+        ZAxisMovement = 0;
+    }
+
+    private void trusterStopHorizontal()
+    {
+        XAxisMovement = 0;
     }
 }
