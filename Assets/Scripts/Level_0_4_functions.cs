@@ -50,7 +50,7 @@ public class Level_0_4_functions : MonoBehaviour
         else if (IsCompleted == 2)
         {
             if (PlayerPrefs.GetInt("levelProgress0") == 4) PlayerPrefs.SetInt("levelProgress0", 5);
-            SceneManager.LoadScene("Level_0_4");
+            SceneManager.LoadScene("Level_0_5");
         }
         else if (IsCompleted == 3)
         {
