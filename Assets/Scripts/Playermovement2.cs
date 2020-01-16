@@ -7,6 +7,7 @@ using TMPro;
 
 public class Playermovement2 : MonoBehaviour
 {
+ 
     private Rigidbody rb;
     public TextMeshProUGUI MotionFeedback;
     public TextMeshProUGUI FuelText;
@@ -232,4 +233,8 @@ public class Playermovement2 : MonoBehaviour
     {
         XAxisMovement = 0;
     }
+
+
+
+    
 }
