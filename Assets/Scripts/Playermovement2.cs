@@ -7,6 +7,7 @@ using TMPro;
 
 public class Playermovement2 : MonoBehaviour
 {
+ 
     private Rigidbody rb;
     public TextMeshProUGUI MotionFeedback;
     public TextMeshProUGUI FuelText;
@@ -15,6 +16,11 @@ public class Playermovement2 : MonoBehaviour
     public UnityEvent PlayerFail;
     public RawImage FuelBarSprite;
 
+    public ParticleSystem ThrusterUp;
+    public ParticleSystem ThrusterDown;
+    public ParticleSystem ThrusterForward;
+    public ParticleSystem ThrusterBack;
+
     private bool checkingForStop;
     private float stopTimer;
     public bool RotateControls;
@@ -22,10 +28,13 @@ public class Playermovement2 : MonoBehaviour
     public float ThrusterPower;
     public float RotateSpeed;
     public float FuelUsed = 0.0f;
-    public float MaxSpeed = 20.0f;
+    private float MaxSpeed;
     private int StartingFuel;
     [SerializeField] int LevelFuel;
     [SerializeField] float StoppingSpeed;
+    [SerializeField] bool AI = false;
+    private float ZAxisMovement;
+    private float XAxisMovement;
 
     void Start()
     {
@@ -34,8 +43,8 @@ public class Playermovement2 : MonoBehaviour
         FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
         StartingFuel = LevelFuel + PlayerPrefs.GetInt("StartingFuel", 0);
-
-
+        MaxSpeed = 75 + PlayerPrefs.GetInt("MaxSpeed", 0);
+        Movement();
     }
 
     public void Update()
@@ -46,8 +55,6 @@ public class Playermovement2 : MonoBehaviour
         var move_vec = rb.velocity;
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
         Speed.text = "Snelheid: " + (int)move_vec.magnitude;
-
-
     }
 
     private void CheckForCompleteStop()
@@ -63,13 +70,15 @@ public class Playermovement2 : MonoBehaviour
             rb.velocity = Vector3.zero;
             checkingForStop = false;
         }
-
     }
 
     private void Movement()
     {
-        float ZAxisMovement = Input.GetAxis("Vertical");
-        float XAxisMovement = Input.GetAxis("Horizontal");
+        if (!AI)
+        {
+            ZAxisMovement = Input.GetAxis("Vertical");
+            XAxisMovement = Input.GetAxis("Horizontal");
+        }
 
         if (rb.velocity.x > MaxSpeed && XAxisMovement > 0)
         {
@@ -94,6 +103,7 @@ public class Playermovement2 : MonoBehaviour
             FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
             rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
             FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
+            MotorAnimator(ZAxisMovement,XAxisMovement);
         }
 
         if (RotateControls == true)
@@ -108,7 +118,56 @@ public class Playermovement2 : MonoBehaviour
             }
         }
     }
+    public void MotorAnimator(float VerticalControl, float HorizontalControl)
+    {
+        bool ZAnimatorDown = false;
+        bool ZAnimatorUp = false;
+        bool XAnimatorForward = false;
+        bool XAnimatorBack = false;
 
+
+        if (VerticalControl > 0.0f)
+        {
+            ZAnimatorUp = true;
+        }
+        if (VerticalControl < 0.0f)
+        {
+            ZAnimatorDown = true;
+        }
+        if (HorizontalControl > 0.0f)
+        {
+            XAnimatorForward = true;
+        }
+        if (HorizontalControl < 0.0f)
+        {
+            XAnimatorBack = true;
+        }
+        
+        if (ZAnimatorDown == true)
+        {
+            ThrusterDown.Play();
+        }
+        if (ZAnimatorUp == true)
+        {
+            ThrusterUp.Play();
+        }
+        if (XAnimatorForward == true)
+        {
+            ThrusterForward.Play();
+        }
+        if (XAnimatorBack == true)
+        {
+            ThrusterBack.Play();
+        }
+
+        if (VerticalControl == 0.0f && HorizontalControl == 0.0f)
+        {
+            ThrusterUp.Stop();
+            ThrusterBack.Stop();
+            ThrusterForward.Stop();
+            ThrusterDown.Stop();
+        }
+    }
 
     public void allowMovement()
     {
@@ -142,4 +201,41 @@ public class Playermovement2 : MonoBehaviour
     {
         PlayerFail.Invoke();
     }
+
+
+    public void trusterUp(float UpTime)
+    {
+        ZAxisMovement = 1;
+        Invoke("trusterStopVertical", UpTime);
+    }
+
+    public void trusterDown(float UpTime)
+    {
+        ZAxisMovement = -1;
+        Invoke("trusterStopVertical", UpTime);
+    }
+    public void trusterRight(float UpTime)
+    {
+        XAxisMovement = 1;
+        Invoke("trusterStopHorizontal", UpTime);
+    }
+    public void trusterLeft(float UpTime)
+    {
+        XAxisMovement = -1;
+        Invoke("trusterStopHorizontal", UpTime);
+    }
+
+    private void trusterStopVertical()
+    {
+        ZAxisMovement = 0;
+    }
+
+    private void trusterStopHorizontal()
+    {
+        XAxisMovement = 0;
+    }
+
+
+
+    
 }
