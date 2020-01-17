@@ -7,6 +7,7 @@ using TMPro;
 
 public class Playermovement2 : MonoBehaviour
 {
+ 
     private Rigidbody rb;
     public TextMeshProUGUI MotionFeedback;
     public TextMeshProUGUI FuelText;
@@ -27,10 +28,13 @@ public class Playermovement2 : MonoBehaviour
     public float ThrusterPower;
     public float RotateSpeed;
     public float FuelUsed = 0.0f;
-    public float MaxSpeed = 20.0f;
+    private float MaxSpeed;
     private int StartingFuel;
     [SerializeField] int LevelFuel;
     [SerializeField] float StoppingSpeed;
+    [SerializeField] bool AI = false;
+    private float ZAxisMovement;
+    private float XAxisMovement;
 
     void Start()
     {
@@ -39,6 +43,7 @@ public class Playermovement2 : MonoBehaviour
         FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
         StartingFuel = LevelFuel + PlayerPrefs.GetInt("StartingFuel", 0);
+        MaxSpeed = 75 + PlayerPrefs.GetInt("MaxSpeed", 0);
         Movement();
     }
 
@@ -69,8 +74,11 @@ public class Playermovement2 : MonoBehaviour
 
     private void Movement()
     {
-        float ZAxisMovement = Input.GetAxis("Vertical");
-        float XAxisMovement = Input.GetAxis("Horizontal");
+        if (!AI)
+        {
+            ZAxisMovement = Input.GetAxis("Vertical");
+            XAxisMovement = Input.GetAxis("Horizontal");
+        }
 
         if (rb.velocity.x > MaxSpeed && XAxisMovement > 0)
         {
@@ -193,4 +201,41 @@ public class Playermovement2 : MonoBehaviour
     {
         PlayerFail.Invoke();
     }
+
+
+    public void trusterUp(float UpTime)
+    {
+        ZAxisMovement = 1;
+        Invoke("trusterStopVertical", UpTime);
+    }
+
+    public void trusterDown(float UpTime)
+    {
+        ZAxisMovement = -1;
+        Invoke("trusterStopVertical", UpTime);
+    }
+    public void trusterRight(float UpTime)
+    {
+        XAxisMovement = 1;
+        Invoke("trusterStopHorizontal", UpTime);
+    }
+    public void trusterLeft(float UpTime)
+    {
+        XAxisMovement = -1;
+        Invoke("trusterStopHorizontal", UpTime);
+    }
+
+    private void trusterStopVertical()
+    {
+        ZAxisMovement = 0;
+    }
+
+    private void trusterStopHorizontal()
+    {
+        XAxisMovement = 0;
+    }
+
+
+
+    
 }

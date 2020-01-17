@@ -16,6 +16,8 @@ public class MainMenuExecute : MonoBehaviour
             if (PlayerPrefs.GetInt("levelProgress" + i) == 0) PlayerPrefs.SetInt("levelProgress" + i, 1);
         }
 
+        //PlayerPrefs.SetInt("StartingFuel", 0);
+
         SceneManager.LoadScene("MissionMenu");
 
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
