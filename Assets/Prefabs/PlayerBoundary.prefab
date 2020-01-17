@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5978342930806048605}
   m_Layer: 0
   m_Name: PlayerBoundary
-  m_TagString: Untagged
+  m_TagString: LevelBoundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   warning: {fileID: 0}
+  interval: 0
+  MyEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!136 &5978342930806048605
 CapsuleCollider:
   m_ObjectHideFlags: 0

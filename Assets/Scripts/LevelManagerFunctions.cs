@@ -224,10 +224,13 @@ public class LevelManagerFunctions : MonoBehaviour
                     StartCoroutine(trustLeft(1.97f, 19.5f));
                     break;
                 case 2:
-                    StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustDown(0.8f, 6));
-                    StartCoroutine(trustUp(0.77f, 12));
-                    StartCoroutine(trustLeft(1.95f, 12));
+                    StartCoroutine(trustLeft(2, 1));
+                    StartCoroutine(trustRight(2, 6));
+                    StartCoroutine(trustUp(2, 6));
+                    StartCoroutine(trustLeft(1.97f, 11));
+                    StartCoroutine(trustDown(2, 11));
+                    StartCoroutine(trustDown(2, 13.1f));
+                    StartCoroutine(trustUp(1.97f, 17.5f));
                     break;
             }
         }

@@ -47,6 +47,7 @@ MonoBehaviour:
   panel: {fileID: 0}
   player: {fileID: 0}
   panelText: {fileID: 0}
+  CoinAmount: {fileID: 0}
   targets: []
   thisIndex: 0
   thisBlockLevel: 0
@@ -64,7 +65,7 @@ GameObject:
   - component: {fileID: 6241913519501807520}
   m_Layer: 0
   m_Name: InvisibleTrigger
-  m_TagString: Untagged
+  m_TagString: MissionObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

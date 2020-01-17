@@ -1326,6 +1326,21 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8734749151323850659, guid: 2337822c56164394381f337a147ff46e,
+        type: 3}
+      propertyPath: MyEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 795241209}
+    - target: {fileID: 8734749151323850659, guid: 2337822c56164394381f337a147ff46e,
+        type: 3}
+      propertyPath: MyEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LevelFail
+      objectReference: {fileID: 0}
+    - target: {fileID: 8734749151323850659, guid: 2337822c56164394381f337a147ff46e,
+        type: 3}
+      propertyPath: MyEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2337822c56164394381f337a147ff46e, type: 3}
 --- !u!114 &24440327 stripped
