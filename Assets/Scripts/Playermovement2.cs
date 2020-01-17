@@ -7,6 +7,7 @@ using TMPro;
 
 public class Playermovement2 : MonoBehaviour
 {
+ 
     private Rigidbody rb;
     public TextMeshProUGUI MotionFeedback;
     public TextMeshProUGUI FuelText;
@@ -27,7 +28,7 @@ public class Playermovement2 : MonoBehaviour
     public float ThrusterPower;
     public float RotateSpeed;
     public float FuelUsed = 0.0f;
-    public float MaxSpeed = 20.0f;
+    private float MaxSpeed;
     private int StartingFuel;
     [SerializeField] int LevelFuel;
     [SerializeField] float StoppingSpeed;
@@ -42,6 +43,7 @@ public class Playermovement2 : MonoBehaviour
         FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
         StartingFuel = LevelFuel + PlayerPrefs.GetInt("StartingFuel", 0);
+        MaxSpeed = 75 + PlayerPrefs.GetInt("MaxSpeed", 0);
         Movement();
     }
 
@@ -232,4 +234,8 @@ public class Playermovement2 : MonoBehaviour
     {
         XAxisMovement = 0;
     }
+
+
+
+    
 }
