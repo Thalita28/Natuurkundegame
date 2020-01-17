@@ -500,7 +500,7 @@ PrefabInstance:
     - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
       propertyPath: LevelFuel
-      value: 50000
+      value: 25000
       objectReference: {fileID: 0}
     - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
@@ -530,7 +530,7 @@ PrefabInstance:
     - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
       propertyPath: StoppingSpeed
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
@@ -547,6 +547,11 @@ PrefabInstance:
       propertyPath: Speed
       value: 
       objectReference: {fileID: 1690717512}
+    - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
+        type: 3}
+      propertyPath: ThrusterPower
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3486571636926290214, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
       propertyPath: MotionFeedback
@@ -1606,6 +1611,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6111179075951904171, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2646822852954079611, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1631,10 +1641,30 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6111179075951904171, guid: c9e7521f4ab4b7949942870423c694f0,
+    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 4
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4562482866648132756, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
@@ -1680,31 +1710,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: allowMovement
-      objectReference: {fileID: 0}
-    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3014583955620056799, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_text
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7546748244888659907, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}

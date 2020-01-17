@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using TMPro;
 using UnityEngine;
 
 public class HangerShopMenuExecute : MonoBehaviour
@@ -9,6 +10,7 @@ public class HangerShopMenuExecute : MonoBehaviour
     public Renderer Trusters;
     public Renderer Cockpit;
     public Renderer Body;
+    public TextMeshProUGUI FuelCost;
 
     public GameObject[] ColorButtons;
     public GameObject[] FuelStuff;
@@ -27,18 +29,29 @@ public class HangerShopMenuExecute : MonoBehaviour
         {
             ColorButtons[i].SetActive(!menuState);
         }
-        
+
+        for (i = 0; i < FuelStuff.Length; i++)
+        {
+            FuelStuff[i].SetActive(false);
+        }
+
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
     public void OpenFuelShop()
     {
+        FuelCost.text = "" + (100 + PlayerPrefs.GetInt("StartingFuel") / 100);
+
         bool menuState = FuelStuff[0].activeSelf;
         int i;
 
         for (i = 0; i < FuelStuff.Length; i++)
         {
             FuelStuff[i].SetActive(!menuState);
+        }
+        for (i = 0; i < ColorButtons.Length; i++)
+        {
+            ColorButtons[i].SetActive(false);
         }
 
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
@@ -85,11 +98,13 @@ public class HangerShopMenuExecute : MonoBehaviour
 
     public void UpgradeFuel()
     {
-        if (PlayerPrefs.GetInt("Coins") > 99)
+        if (PlayerPrefs.GetInt("Coins") > (100 + PlayerPrefs.GetInt("StartingFuel") / 100)-1)
         {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - 100);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + PlayerPrefs.GetInt("StartingFuel") / 100));
             PlayerPrefs.SetInt("StartingFuel", PlayerPrefs.GetInt("StartingFuel") + 5000);
         }
+
+        FuelCost.text = "" + (100 + PlayerPrefs.GetInt("StartingFuel") / 100);
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
    

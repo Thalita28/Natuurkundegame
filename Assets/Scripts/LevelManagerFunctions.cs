@@ -150,7 +150,7 @@ public class LevelManagerFunctions : MonoBehaviour
     public void ExecuteAnswer(int answer)
     {
         closePanel();
-        if (thisIndex == 4 && thisBlockLevel == 0)
+        if (thisIndex == 5 && thisBlockLevel == 0)
         {
             switch (answer)
             {
@@ -171,7 +171,7 @@ public class LevelManagerFunctions : MonoBehaviour
             }
         }
 
-        else if (thisIndex == 5 && thisBlockLevel == 0)
+        else if (thisIndex == 6 && thisBlockLevel == 0)
         {
             switch (answer)
             {
@@ -185,6 +185,43 @@ public class LevelManagerFunctions : MonoBehaviour
                     StartCoroutine(trustUp(2, 6));
                     StartCoroutine(trustLeft(2, 9));
                     StartCoroutine(trustDown(2, 9));
+                    break;
+                case 2:
+                    StartCoroutine(trustRight(2, 1));
+                    StartCoroutine(trustDown(0.8f, 6));
+                    StartCoroutine(trustUp(0.77f, 12));
+                    StartCoroutine(trustLeft(1.95f, 12));
+                    break;
+            }
+        }
+
+        else if (thisIndex == 7 && thisBlockLevel == 0)
+        {
+            switch (answer)
+            {
+                case 0:
+                    StartCoroutine(trustUp(2, 1));
+                    StartCoroutine(trustLeft(2, 1));
+                    StartCoroutine(trustRight(2, 4));
+                    StartCoroutine(trustDown(2, 7));
+                    StartCoroutine(trustRight(2, 9));
+                    StartCoroutine(trustLeft(2, 12));
+                    StartCoroutine(trustLeft(2, 14.1f));
+                    StartCoroutine(trustDown(2, 14.1f));
+                    StartCoroutine(trustRight(1.97f, 19.5f));
+                    StartCoroutine(trustUp(2, 19.5f));
+                    StartCoroutine(trustRight(2, 21.5f));
+                    StartCoroutine(trustLeft(1.97f, 26.5f));
+                    break;
+                case 1:
+                    StartCoroutine(trustUp(2, 1));
+                    StartCoroutine(trustDown(1.97f, 6));
+                    StartCoroutine(trustLeft(2, 8));
+                    StartCoroutine(trustDown(2, 8));
+                    StartCoroutine(trustRight(1.97f, 13));
+                    StartCoroutine(trustUp(2, 13));
+                    StartCoroutine(trustRight(2, 15f));
+                    StartCoroutine(trustLeft(1.97f, 19.5f));
                     break;
                 case 2:
                     StartCoroutine(trustRight(2, 1));
