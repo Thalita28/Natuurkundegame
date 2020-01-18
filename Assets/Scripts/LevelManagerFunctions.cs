@@ -190,7 +190,7 @@ public class LevelManagerFunctions : MonoBehaviour
             {
                 case 0:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustLeft(1.98f, 12));
+                    StartCoroutine(trustLeft(1.95f, 14));
                     break;
                 case 1:
                     StartCoroutine(trustRight(2, 1));
@@ -216,15 +216,15 @@ public class LevelManagerFunctions : MonoBehaviour
                     break;
                 case 1:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustUp(2, 6));
-                    StartCoroutine(trustLeft(2, 9));
-                    StartCoroutine(trustDown(2, 9));
+                    StartCoroutine(trustUp(0.8f, 7));
+                    StartCoroutine(trustDown(0.77f, 14));
+                    StartCoroutine(trustLeft(1.96f, 14));
                     break;
                 case 2:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustDown(0.8f, 6));
-                    StartCoroutine(trustUp(0.77f, 12));
-                    StartCoroutine(trustLeft(1.95f, 12));
+                    StartCoroutine(trustDown(0.8f, 7));
+                    StartCoroutine(trustUp(0.77f, 14));
+                    StartCoroutine(trustLeft(1.95f, 14));
                     break;
             }
         }
@@ -239,32 +239,32 @@ public class LevelManagerFunctions : MonoBehaviour
                     StartCoroutine(trustRight(2, 4));
                     StartCoroutine(trustDown(2, 7));
                     StartCoroutine(trustRight(2, 9));
-                    StartCoroutine(trustLeft(2, 12));
+                    StartCoroutine(trustLeft(2, 12f));
                     StartCoroutine(trustLeft(2, 14.1f));
                     StartCoroutine(trustDown(2, 14.1f));
-                    StartCoroutine(trustRight(1.97f, 19.5f));
-                    StartCoroutine(trustUp(2, 19.5f));
-                    StartCoroutine(trustRight(2, 21.5f));
-                    StartCoroutine(trustLeft(1.97f, 26.5f));
+                    StartCoroutine(trustRight(1.97f, 20));
+                    StartCoroutine(trustUp(2, 20));
+                    StartCoroutine(trustRight(2, 22.1f));
+                    StartCoroutine(trustLeft(1.97f, 28));
                     break;
                 case 1:
                     StartCoroutine(trustUp(2, 1));
-                    StartCoroutine(trustDown(1.97f, 6));
-                    StartCoroutine(trustLeft(2, 8));
-                    StartCoroutine(trustDown(2, 8));
-                    StartCoroutine(trustRight(1.97f, 13));
-                    StartCoroutine(trustUp(2, 13));
-                    StartCoroutine(trustRight(2, 15f));
-                    StartCoroutine(trustLeft(1.97f, 19.5f));
+                    StartCoroutine(trustDown(1.97f, 7));
+                    StartCoroutine(trustLeft(2, 9));
+                    StartCoroutine(trustDown(2, 9));
+                    StartCoroutine(trustRight(1.97f, 15));
+                    StartCoroutine(trustUp(2, 15));
+                    StartCoroutine(trustRight(2, 17));
+                    StartCoroutine(trustLeft(1.97f, 23));
                     break;
                 case 2:
                     StartCoroutine(trustLeft(2, 1));
-                    StartCoroutine(trustRight(2, 6));
-                    StartCoroutine(trustUp(2, 6));
-                    StartCoroutine(trustLeft(1.97f, 11));
-                    StartCoroutine(trustDown(2, 11));
-                    StartCoroutine(trustDown(2, 13.1f));
-                    StartCoroutine(trustUp(1.97f, 17.5f));
+                    StartCoroutine(trustRight(2, 7));
+                    StartCoroutine(trustUp(2, 7));
+                    StartCoroutine(trustLeft(1.97f, 12));
+                    StartCoroutine(trustDown(2, 12));
+                    StartCoroutine(trustDown(2, 14.1f));
+                    StartCoroutine(trustUp(1.97f, 18.5f));
                     break;
             }
         }

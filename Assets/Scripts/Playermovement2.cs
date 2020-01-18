@@ -51,7 +51,7 @@ public class Playermovement2 : MonoBehaviour
         Movement();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (IsMoving) Movement();
         UpdateFuelBar();
@@ -103,10 +103,10 @@ public class Playermovement2 : MonoBehaviour
 
         if (StartingFuel > FuelUsed)
         {
-            rb.AddForce(Vector3.forward * ZAxisMovement  *ThrusterPower/3, ForceMode.Impulse);
-            FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower/3));
-            rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower/3, ForceMode.Impulse);
-            FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower/3));
+            rb.AddForce(Vector3.forward * ZAxisMovement  *ThrusterPower, ForceMode.Impulse);
+            FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
+            rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
+            FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
             MotorAnimator(ZAxisMovement,XAxisMovement);
             if(AI)ArrowVisualization(ZAxisMovement, XAxisMovement);
         }
@@ -172,12 +172,16 @@ public class Playermovement2 : MonoBehaviour
             ThrusterBack.Play();
         }
 
-        if (VerticalControl == 0.0f && HorizontalControl == 0.0f)
+        if (VerticalControl == 0.0f)
         {
             ThrusterUp.Stop();
+            ThrusterDown.Stop();
+        }
+
+        if (HorizontalControl == 0.0f)
+        {
             ThrusterBack.Stop();
             ThrusterForward.Stop();
-            ThrusterDown.Stop();
         }
     }
 
