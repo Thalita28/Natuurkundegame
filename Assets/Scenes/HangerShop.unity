@@ -4535,7 +4535,7 @@ PrefabInstance:
     - target: {fileID: 3943232240581278020, guid: 652f1bbba11a99141ae766e6f1d5fa2f,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3943232240581278020, guid: 652f1bbba11a99141ae766e6f1d5fa2f,
         type: 3}
@@ -4560,7 +4560,7 @@ PrefabInstance:
     - target: {fileID: 3943232240581278020, guid: 652f1bbba11a99141ae766e6f1d5fa2f,
         type: 3}
       propertyPath: m_text
-      value: Back
+      value: Terug
       objectReference: {fileID: 0}
     - target: {fileID: 3943232241484096687, guid: 652f1bbba11a99141ae766e6f1d5fa2f,
         type: 3}
