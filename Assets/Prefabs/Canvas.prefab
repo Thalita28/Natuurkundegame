@@ -2042,7 +2042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 603.75, y: 196}
+  m_AnchoredPosition: {x: 600, y: 196}
   m_SizeDelta: {x: 63.09, y: 62.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9186736212291473195
@@ -2347,7 +2347,6 @@ MonoBehaviour:
   SpeedGaugeScreen: {fileID: 8970184522417937859}
   SpeedGaugeTrim: {fileID: 4506055917583840448}
   SpeedGaugeTrimmaterial: {fileID: 0}
-  GageScale: 150
 --- !u!1 &7684318540044421906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,7 +2454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 603.75, y: 324.67}
+  m_AnchoredPosition: {x: 600, y: 324.67}
   m_SizeDelta: {x: 63.09, y: 62.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3404067720268921268
@@ -2586,7 +2585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 604.2, y: 260.6998}
+  m_AnchoredPosition: {x: 600, y: 260.6998}
   m_SizeDelta: {x: 63, y: 63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1544469468702596969
@@ -2991,11 +2990,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3230611441120827841, guid: 4d9d5b9278a233146a12ec797a6032ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 646317425078439890, guid: 4d9d5b9278a233146a12ec797a6032ca,
         type: 3}
       propertyPath: m_IsActive
@@ -3040,6 +3034,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230611441120827841, guid: 4d9d5b9278a233146a12ec797a6032ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9d5b9278a233146a12ec797a6032ca, type: 3}

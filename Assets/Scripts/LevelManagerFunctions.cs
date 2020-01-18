@@ -13,7 +13,10 @@ public class LevelManagerFunctions : MonoBehaviour
     public TextMeshProUGUI CoinAmount;
     private Animator PanelAnimator;
     public GameObject[] targets;
+    public bool UseTimer;
 
+    private float timer;
+    private float FinishTime;
     private int path;
     private string SceneName;
     [SerializeField] int thisIndex;
@@ -83,8 +86,39 @@ public class LevelManagerFunctions : MonoBehaviour
         if (rbPlayer.velocity.magnitude == 0 && path == 10)
         {
             path = 0;
-            panelText.text = "Level Voltooid!";
 
+            Playermovement2 PlayerScript = player.GetComponent<Playermovement2>();
+            var UsedFuel = PlayerScript.FuelUsed;
+            if (UseTimer)
+            {
+                FinishTime = Time.time - timer;
+
+                if (FinishTime < PlayerPrefs.GetFloat("Time_" + thisBlockLevel + "_" + thisIndex, -1) || PlayerPrefs.GetFloat("Time_" + thisBlockLevel + "_" + thisIndex, -1) == -1)
+                {
+                    PlayerPrefs.SetFloat("Time_" + thisBlockLevel + "_" + thisIndex, FinishTime);
+                    panelText.text = "Level Voltooid!\nFinish tijd: " + FinishTime.ToString("f1") + "  (Nieuw Record!)";
+                }
+                else panelText.text = "Level Voltooid!\nFinish tijd: " + FinishTime.ToString("f1");
+
+                panelText.text = panelText.text + "\nBrandstofverbruik: " + (int)(UsedFuel / 100);
+
+                UsedFuel /= 1000;
+                if ((int)(UsedFuel * FinishTime) < PlayerPrefs.GetInt("Score_" + thisBlockLevel + "_" + thisIndex, -1) || PlayerPrefs.GetInt("Score_" + thisBlockLevel + "_" + thisIndex, -1) == -1)
+                {
+                    PlayerPrefs.SetInt("Score_" + thisBlockLevel + "_" + thisIndex, (int)(UsedFuel * FinishTime));
+                    PlayerPrefs.SetInt("Fuel_" + thisBlockLevel + "_" + thisIndex, (int)(UsedFuel*10));
+                    panelText.text = panelText.text + "\nScore: " + (int)(UsedFuel * FinishTime) + "  (Nieuw Record!)";
+                }
+                else panelText.text = panelText.text + "\nScore: " + (int)(UsedFuel * FinishTime);
+
+            }
+            else
+            {
+                panelText.text = "Level Voltooid!";
+                panelText.text = panelText.text + "\nBrandstofverbruik: " + (int)(UsedFuel / 100);
+            }
+
+ 
             if (PlayerPrefs.GetInt("levelProgress" + thisBlockLevel) == thisIndex)
             {
                 PlayerPrefs.SetInt("Coins", 100 + PlayerPrefs.GetInt("Coins", 0));
@@ -156,7 +190,7 @@ public class LevelManagerFunctions : MonoBehaviour
             {
                 case 0:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustLeft(1.98f, 12));
+                    StartCoroutine(trustLeft(1.95f, 14));
                     break;
                 case 1:
                     StartCoroutine(trustRight(2, 1));
@@ -182,15 +216,15 @@ public class LevelManagerFunctions : MonoBehaviour
                     break;
                 case 1:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustUp(2, 6));
-                    StartCoroutine(trustLeft(2, 9));
-                    StartCoroutine(trustDown(2, 9));
+                    StartCoroutine(trustUp(0.8f, 7));
+                    StartCoroutine(trustDown(0.77f, 14));
+                    StartCoroutine(trustLeft(1.96f, 14));
                     break;
                 case 2:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustDown(0.8f, 6));
-                    StartCoroutine(trustUp(0.77f, 12));
-                    StartCoroutine(trustLeft(1.95f, 12));
+                    StartCoroutine(trustDown(0.8f, 7));
+                    StartCoroutine(trustUp(0.77f, 14));
+                    StartCoroutine(trustLeft(1.95f, 14));
                     break;
             }
         }
@@ -205,29 +239,32 @@ public class LevelManagerFunctions : MonoBehaviour
                     StartCoroutine(trustRight(2, 4));
                     StartCoroutine(trustDown(2, 7));
                     StartCoroutine(trustRight(2, 9));
-                    StartCoroutine(trustLeft(2, 12));
+                    StartCoroutine(trustLeft(2, 12f));
                     StartCoroutine(trustLeft(2, 14.1f));
                     StartCoroutine(trustDown(2, 14.1f));
-                    StartCoroutine(trustRight(1.97f, 19.5f));
-                    StartCoroutine(trustUp(2, 19.5f));
-                    StartCoroutine(trustRight(2, 21.5f));
-                    StartCoroutine(trustLeft(1.97f, 26.5f));
+                    StartCoroutine(trustRight(1.97f, 20));
+                    StartCoroutine(trustUp(2, 20));
+                    StartCoroutine(trustRight(2, 22.1f));
+                    StartCoroutine(trustLeft(1.97f, 28));
                     break;
                 case 1:
                     StartCoroutine(trustUp(2, 1));
-                    StartCoroutine(trustDown(1.97f, 6));
-                    StartCoroutine(trustLeft(2, 8));
-                    StartCoroutine(trustDown(2, 8));
-                    StartCoroutine(trustRight(1.97f, 13));
-                    StartCoroutine(trustUp(2, 13));
-                    StartCoroutine(trustRight(2, 15f));
-                    StartCoroutine(trustLeft(1.97f, 19.5f));
+                    StartCoroutine(trustDown(1.97f, 7));
+                    StartCoroutine(trustLeft(2, 9));
+                    StartCoroutine(trustDown(2, 9));
+                    StartCoroutine(trustRight(1.97f, 15));
+                    StartCoroutine(trustUp(2, 15));
+                    StartCoroutine(trustRight(2, 17));
+                    StartCoroutine(trustLeft(1.97f, 23));
                     break;
                 case 2:
-                    StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustDown(0.8f, 6));
-                    StartCoroutine(trustUp(0.77f, 12));
-                    StartCoroutine(trustLeft(1.95f, 12));
+                    StartCoroutine(trustLeft(2, 1));
+                    StartCoroutine(trustRight(2, 7));
+                    StartCoroutine(trustUp(2, 7));
+                    StartCoroutine(trustLeft(1.97f, 12));
+                    StartCoroutine(trustDown(2, 12));
+                    StartCoroutine(trustDown(2, 14.1f));
+                    StartCoroutine(trustUp(1.97f, 18.5f));
                     break;
             }
         }
@@ -243,6 +280,12 @@ public class LevelManagerFunctions : MonoBehaviour
     public void ShowPanel()
     {
         PanelAnimator.SetBool("IsHidden", false);
-
     }
+
+    public void StartTimer()
+    {
+        timer = Time.time;
+    }
+
+
 }
