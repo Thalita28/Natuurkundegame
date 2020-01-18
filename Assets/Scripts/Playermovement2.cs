@@ -15,6 +15,7 @@ public class Playermovement2 : MonoBehaviour
     public Transform FuelBar;
     public UnityEvent PlayerFail;
     public RawImage FuelBarSprite;
+    public GameObject[] Arrows;
 
     public ParticleSystem ThrusterUp;
     public ParticleSystem ThrusterDown;
@@ -25,7 +26,7 @@ public class Playermovement2 : MonoBehaviour
     private float stopTimer;
     public bool RotateControls;
     private bool IsMoving;
-    public float ThrusterPower;
+    private int ThrusterPower;
     public float RotateSpeed;
     public float FuelUsed = 0.0f;
     private float MaxSpeed;
@@ -38,12 +39,15 @@ public class Playermovement2 : MonoBehaviour
 
     void Start()
     {
+        if(AI) Arrows[4].SetActive(false);
         IsMoving = false;
         checkingForStop = false;
         FuelUsed = 0;
         rb = GetComponent<Rigidbody>();
         StartingFuel = LevelFuel + PlayerPrefs.GetInt("StartingFuel", 0);
         MaxSpeed = 75 + PlayerPrefs.GetInt("MaxSpeed", 0);
+        if (!AI) ThrusterPower = 50 + PlayerPrefs.GetInt("Power", 0);
+        else ThrusterPower = 50;
         Movement();
     }
 
@@ -99,11 +103,19 @@ public class Playermovement2 : MonoBehaviour
 
         if (StartingFuel > FuelUsed)
         {
-            rb.AddForce(Vector3.forward * ZAxisMovement  *ThrusterPower, ForceMode.Impulse);
-            FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
-            rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
-            FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
+            rb.AddForce(Vector3.forward * ZAxisMovement  *ThrusterPower/3, ForceMode.Impulse);
+            FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower/3));
+            rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower/3, ForceMode.Impulse);
+            FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower/3));
             MotorAnimator(ZAxisMovement,XAxisMovement);
+            if(AI)ArrowVisualization(ZAxisMovement, XAxisMovement);
+        }
+        else
+        {
+            ThrusterUp.Stop();
+            ThrusterBack.Stop();
+            ThrusterForward.Stop();
+            ThrusterDown.Stop();
         }
 
         if (RotateControls == true)
@@ -171,6 +183,7 @@ public class Playermovement2 : MonoBehaviour
 
     public void allowMovement()
     {
+        if(AI)Arrows[4].SetActive(true);
         IsMoving = true;
     }
 
@@ -235,7 +248,20 @@ public class Playermovement2 : MonoBehaviour
         XAxisMovement = 0;
     }
 
+    private void ArrowVisualization(float xMove,float  zMove)
+    {
+        if (xMove > 0) Arrows[0].SetActive(true);
+        else Arrows[0].SetActive(false);
 
+        if (xMove < 0) Arrows[1].SetActive(true);
+        else Arrows[1].SetActive(false);
+
+        if (zMove > 0) Arrows[2].SetActive(true);
+        else Arrows[2].SetActive(false);
+
+        if (zMove < 0) Arrows[3].SetActive(true);
+        else Arrows[3].SetActive(false);
+    }
 
     
 }
