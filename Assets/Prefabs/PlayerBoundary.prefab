@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   warning: {fileID: 0}
-  interval: 0
+  interval: 10
   MyEvent:
     m_PersistentCalls:
       m_Calls: []
