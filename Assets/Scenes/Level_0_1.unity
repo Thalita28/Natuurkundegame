@@ -912,9 +912,8 @@ PrefabInstance:
     - target: {fileID: 6763751857084502934, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: Hallo Ruimtereiziger! Het is aan jou om het schip naar het ruimte te
-        station te vliegen en in het groene vak tot stil stand te komen. Denk eraan,
-        remmen gaat niet vanzelf!
+      value: Hallo Ruimtereiziger! Tijd voor je eerste ruimtevlucht. Probeer het schip
+        te landen op het landingsplatform.
       objectReference: {fileID: 0}
     - target: {fileID: 6763751857084502934, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
@@ -1505,6 +1504,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604594223523416211, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_Name
+      value: Snelheid TMP
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8098995605926314207, guid: c9e7521f4ab4b7949942870423c694f0, type: 3}

@@ -32,6 +32,7 @@ public class LevelManagerFunctions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        timer = 0;
         CargoAmount = new int[] { 0, 0, 0, 0};
         Debug.Log(CargoAmount.Length);
         StationIndex = 0;
@@ -129,6 +130,7 @@ public class LevelManagerFunctions : MonoBehaviour
                 {
                     PlayerPrefs.SetInt("Score_" + thisBlockLevel + "_" + thisIndex,Score);
                     PlayerPrefs.SetInt("Fuel_" + thisBlockLevel + "_" + thisIndex, (int)(UsedFuel*10));
+                    PlayerPrefs.SetFloat("ScoreTime_" + thisBlockLevel + "_" + thisIndex, FinishTime);
                     panelText.text = panelText.text + "\nScore: " + Score + "  (Nieuw Record!)";
                 }
                 else panelText.text = panelText.text + "\nScore: " + Score;
@@ -302,6 +304,7 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void ShowPanel()
     {
+        
         PanelAnimator.SetBool("IsHidden", false);
     }
 
@@ -315,7 +318,7 @@ public class LevelManagerFunctions : MonoBehaviour
         int index = indexstring[1] - 48;
         int color = indexstring[0] - 48;
 
-        if (StationIndex != 0)
+        if (StationIndex != 0 && Vector3.Distance(player.transform.position,targets[index].transform.position) < 400)
         {
            targets[index].SetActive(false);
            CargoAmount[color]++;
