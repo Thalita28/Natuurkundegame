@@ -10,6 +10,7 @@ public class MissionMenuExecute : MonoBehaviour
     public GameObject canvas;
     public GameObject[] levelMenu;
     public GameObject InputField;
+    public GameObject LevelRecords;
 
     public void EditPlayerName()
     {
@@ -24,6 +25,8 @@ public class MissionMenuExecute : MonoBehaviour
         bool menuState = levelMenu[0].activeSelf;
         levelMenu[0].SetActive(!menuState);
 
+        LevelRecords.SetActive(false);
+
         if (levelMenu[1].activeSelf) levelMenu[1].SetActive(false);
         if (levelMenu[2].activeSelf) levelMenu[2].SetActive(false);
 
@@ -34,6 +37,8 @@ public class MissionMenuExecute : MonoBehaviour
     {
         bool menuState = levelMenu[1].activeSelf;
         levelMenu[1].SetActive(!menuState);
+
+        LevelRecords.SetActive(false);
 
         if (levelMenu[0].activeSelf) levelMenu[0].SetActive(false);
         if (levelMenu[2].activeSelf) levelMenu[2].SetActive(false);
@@ -68,6 +73,16 @@ public class MissionMenuExecute : MonoBehaviour
     public void NameEditExit()
     {
         InputField.SetActive(false);
+    }
+
+    public void OpenRecords()
+    {
+        bool menuState = LevelRecords.activeSelf;
+        LevelRecords.SetActive(!menuState);
+
+        levelMenu[0].SetActive(false);
+        levelMenu[1].SetActive(false);
+        levelMenu[2].SetActive(false);
     }
 
 

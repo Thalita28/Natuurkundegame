@@ -11,9 +11,12 @@ public class HangerShopMenuExecute : MonoBehaviour
     public Renderer Cockpit;
     public Renderer Body;
     public TextMeshProUGUI FuelCost;
+    public TextMeshProUGUI MaxSpeedCost;
+    public TextMeshProUGUI PowerCost;
 
     public GameObject[] ColorButtons;
     public GameObject[] FuelStuff;
+    public GameObject[] EngineStuff;
 
     public void BackToMainMenu()
     {  
@@ -35,6 +38,11 @@ public class HangerShopMenuExecute : MonoBehaviour
             FuelStuff[i].SetActive(false);
         }
 
+        for (i = 0; i < EngineStuff.Length; i++)
+        {
+            EngineStuff[i].SetActive(false);
+        }
+
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
@@ -52,6 +60,36 @@ public class HangerShopMenuExecute : MonoBehaviour
         for (i = 0; i < ColorButtons.Length; i++)
         {
             ColorButtons[i].SetActive(false);
+        }
+
+        for (i = 0; i < EngineStuff.Length; i++)
+        {
+            EngineStuff[i].SetActive(false);
+        }
+
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+    }
+
+    public void OpenEngineShop()
+    {
+        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed",0)*2));
+        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power",0) * 10));
+
+        bool menuState = EngineStuff[0].activeSelf;
+        int i;
+
+        for (i = 0; i < EngineStuff.Length; i++)
+        {
+            EngineStuff[i].SetActive(!menuState);
+        }
+        for (i = 0; i < ColorButtons.Length; i++)
+        {
+            ColorButtons[i].SetActive(false);
+        }
+
+        for (i = 0; i < FuelStuff.Length; i++)
+        {
+            FuelStuff[i].SetActive(false);
         }
 
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
@@ -107,8 +145,30 @@ public class HangerShopMenuExecute : MonoBehaviour
         FuelCost.text = "" + (100 + PlayerPrefs.GetInt("StartingFuel") / 100);
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
-   
+
+    public void UpgradePower()
+    {
+        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("Power",0)* 10 )) - 1)
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("Power", 0) * 10)));
+            PlayerPrefs.SetInt("Power", PlayerPrefs.GetInt("Power") + 5);
+        }
+
+        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power", 0) * 10));
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+    }
 
 
+    public void UpgradeMaxSpeed()
+    {
+        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2)) - 1)
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2)));
+            PlayerPrefs.SetInt("MaxSpeed", PlayerPrefs.GetInt("MaxSpeed") + 10);
+        }
+
+        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2));
+        GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+    }
 
 }
