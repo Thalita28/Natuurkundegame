@@ -479,6 +479,11 @@ PrefabInstance:
       propertyPath: ThrusterPower
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 6413697599886176008, guid: 2337822c56164394381f337a147ff46e,
+        type: 3}
+      propertyPath: AI
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3486571636926290214, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
       propertyPath: MotionFeedback
@@ -492,7 +497,7 @@ PrefabInstance:
     - target: {fileID: 1956070004804692494, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
       propertyPath: m_Mass
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8734749151323850659, guid: 2337822c56164394381f337a147ff46e,
         type: 3}
@@ -905,16 +910,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 7738451546888937536, guid: c9e7521f4ab4b7949942870423c694f0,
+    - target: {fileID: 2539542183282272742, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2646822852954079604, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1798683333}
     - target: {fileID: 6763751857084502934, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
@@ -971,11 +971,6 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2539542183282272742, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 1798683333}
     - target: {fileID: 8732868091508470066, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1461,6 +1456,16 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2646822852954079604, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738451546888937536, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6763751857317522550, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1475,6 +1480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604594223523416211, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_Name
+      value: Snelheid TMP
       objectReference: {fileID: 0}
     - target: {fileID: 6763751857084502932, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
@@ -1511,10 +1521,30 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3604594223523416211, guid: c9e7521f4ab4b7949942870423c694f0,
+    - target: {fileID: 1576472039709080873, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
-      propertyPath: m_Name
-      value: Snelheid TMP
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1576472039709080873, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1576472039709080873, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1576472039709080873, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1576472039709080873, guid: c9e7521f4ab4b7949942870423c694f0,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8098995605926314207, guid: c9e7521f4ab4b7949942870423c694f0, type: 3}
