@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 8034958546111254671}
   - component: {fileID: 5412920120210901683}
   - component: {fileID: 1027179882891032591}
-  - component: {fileID: 8734749151323850659}
+  - component: {fileID: 469998840009991844}
   m_Layer: 0
   m_Name: Thrusters
   m_TagString: Player
@@ -172,7 +172,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: -8378748718710916227, guid: 1ba113c38d578d8498775c80da40c47e, type: 3}
---- !u!114 &8734749151323850659
+--- !u!114 &469998840009991844
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -872,6 +872,7 @@ GameObject:
   - component: {fileID: 6413697599886176008}
   - component: {fileID: 1956070004804692494}
   - component: {fileID: 484385396225894570}
+  - component: {fileID: 1680627314449304538}
   m_Layer: 0
   m_Name: PlayerShip1
   m_TagString: Player
@@ -978,6 +979,32 @@ MonoBehaviour:
   Trusters: {fileID: 5412920120210901683}
   Cockpit: {fileID: 8346152515679178964}
   Body: {fileID: 3533805507424361804}
+--- !u!114 &1680627314449304538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488313485844563563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6ba4a498928234185d8d56c670e863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &388476945095770893
 PrefabInstance:
   m_ObjectHideFlags: 0

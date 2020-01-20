@@ -281,10 +281,16 @@ public class Playermovement2 : MonoBehaviour
 
     }
 
-
     private void AddFuel()
     {
         if (FuelUsed > 0) FuelUsed -= 160;
         if (FuelUsed < 0) FuelUsed = 0;
+    }
+
+    public void FreezeMovement ()
+    {
+        //goeie plek voor crash animatie
+        denyMovement();
+        rb.velocity = Vector3.zero;
     }
 }
