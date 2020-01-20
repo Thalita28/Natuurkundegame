@@ -28,7 +28,8 @@ public class Playermovement2 : MonoBehaviour
     private bool IsMoving;
     private int ThrusterPower;
     public float RotateSpeed;
-    public float FuelUsed = 0.0f;
+    private float FuelUsed = 0.0f;
+    public float FuelUsedTotal = 0;
     private float MaxSpeed;
     private int StartingFuel;
     [SerializeField] int LevelFuel;
@@ -36,6 +37,7 @@ public class Playermovement2 : MonoBehaviour
     [SerializeField] bool AI = false;
     private float ZAxisMovement;
     private float XAxisMovement;
+    private bool isTanking;
 
     void Start()
     {
@@ -43,6 +45,7 @@ public class Playermovement2 : MonoBehaviour
         IsMoving = false;
         checkingForStop = false;
         FuelUsed = 0;
+        FuelUsedTotal = 0;
         rb = GetComponent<Rigidbody>();
         StartingFuel = LevelFuel + PlayerPrefs.GetInt("StartingFuel", 0);
         MaxSpeed = 75 + PlayerPrefs.GetInt("MaxSpeed", 0);
@@ -59,6 +62,8 @@ public class Playermovement2 : MonoBehaviour
         var move_vec = rb.velocity;
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
         Speed.text = "Snelheid: " + (int)move_vec.magnitude;
+
+        if (isTanking) AddFuel();
     }
 
     private void CheckForCompleteStop()
@@ -105,8 +110,10 @@ public class Playermovement2 : MonoBehaviour
         {
             rb.AddForce(Vector3.forward * ZAxisMovement  *ThrusterPower, ForceMode.Impulse);
             FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
+            FuelUsedTotal += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
             rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
             FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
+            FuelUsedTotal += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
             MotorAnimator(ZAxisMovement,XAxisMovement);
             if(AI)ArrowVisualization(ZAxisMovement, XAxisMovement);
         }
@@ -267,5 +274,16 @@ public class Playermovement2 : MonoBehaviour
         else Arrows[3].SetActive(false);
     }
 
-    
+    public void TankFuel()
+    {
+        if (rb.velocity.magnitude == 0) isTanking = true;
+        else isTanking = false;
+
+    }
+
+
+    private void AddFuel()
+    {
+        if (FuelUsed > 0) FuelUsed -= 160;
+    }
 }
