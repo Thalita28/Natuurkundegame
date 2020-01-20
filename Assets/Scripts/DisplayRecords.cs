@@ -9,23 +9,29 @@ public class DisplayRecords : MonoBehaviour
     public TextMeshProUGUI Records;
     // Start is called before the first frame update
 
-    public void ViewRecordsOf(int i)
+    public void ViewRecordsOf(string i)
     {
-        Records.text = "Records van Reddingsmissie " + i + "\n";
+
+        int index = i[1] - 48;
+        int block = i[0] - 48;
+
+        if(block == 0) Records.text = "Records van Reddingsmissie " + index + "\n";
+        else if(block == 1) Records.text = "Records van Transportmissie " + index + "\n";
+
         Records.text = Records.text + "--------------------------------------------------\n";
-        if (PlayerPrefs.GetFloat("Time_0_" + i, -1) < 0) Records.text = Records.text + "Snelste tijd: geen\n";
-        else Records.text = Records.text + "Snelste tijd: " + PlayerPrefs.GetFloat("Time_0_" + i).ToString("f1") + "\n";
+        if (PlayerPrefs.GetFloat("Time_" + block + "_" + index, -1) < 0) Records.text = Records.text + "Snelste tijd: geen\n";
+        else Records.text = Records.text + "Snelste tijd: " + PlayerPrefs.GetFloat("Time_" + block + "_" + index).ToString("f1") + "\n";
         Records.text = Records.text + "-----------------------------------------------------------\n";
 
-        if (PlayerPrefs.GetInt("Score_0_" + i, -1) < 0)
+        if (PlayerPrefs.GetInt("Score_" + block + "_" + index, -1) < 0)
         {
             Records.text = Records.text + "Beste score: geen";
         }
         else
         {
-            Records.text = Records.text + "Beste score: " + PlayerPrefs.GetInt("Score_0_" + i) + " (lager = beter)\n";
-            Records.text = Records.text + "Brandstof: " + PlayerPrefs.GetInt("Fuel_0_" + i) + "\n";
-            Records.text = Records.text + "Tijd: " + ((float)((float)PlayerPrefs.GetInt("Score_0_" + i) / ((float)PlayerPrefs.GetInt("Fuel_0_" + i)/10))).ToString("f1");
+            Records.text = Records.text + "Beste score: " + PlayerPrefs.GetInt("Score_" + block + "_" + index) + " (lager = beter)\n";
+            Records.text = Records.text + "Brandstofverbruik: " + PlayerPrefs.GetInt("Fuel_" + block + "_" + index) + "\n";
+            Records.text = Records.text + "Tijd: " + PlayerPrefs.GetFloat("ScoreTime_" + block + "_" + index).ToString("f1");
         }
 
 

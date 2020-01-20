@@ -17,7 +17,21 @@ public class HangerShopMenuExecute : MonoBehaviour
     public GameObject[] ColorButtons;
     public GameObject[] FuelStuff;
     public GameObject[] EngineStuff;
+    private int index = 1;
 
+
+
+    private void Start()
+    {
+        Picker.onValueChanged.AddListener(color =>
+        {
+            if (index == 0) Trusters.material.color = color;
+            else if (index == 1) Body.material.color = color;
+            else if (index == 2) Cockpit.material.color = color;
+
+
+        });
+    }
     public void BackToMainMenu()
     {  
          SceneManager.LoadScene("MissionMenu");
@@ -97,19 +111,21 @@ public class HangerShopMenuExecute : MonoBehaviour
 
     public void TryOnTrusters()
     {
-        Trusters.material.color = Picker.CurrentColor;
+        index = 0;
        // GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
     public void TryOnCockPit()
     {
-        Cockpit.material.color = Picker.CurrentColor;
+        index = 2;
+   
         //GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
     
     public void TryOnBody()
     {
-        Body.material.color = Picker.CurrentColor;
+        index = 1;
+       
         //GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
@@ -167,7 +183,7 @@ public class HangerShopMenuExecute : MonoBehaviour
             PlayerPrefs.SetInt("MaxSpeed", PlayerPrefs.GetInt("MaxSpeed") + 10);
         }
 
-        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2));
+        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2));
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
