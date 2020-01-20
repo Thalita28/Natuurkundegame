@@ -74,7 +74,7 @@ public class Playermovement2 : MonoBehaviour
             checkingForStop = true;
         }
 
-        if (checkingForStop && rb.velocity.magnitude < StoppingSpeed && Time.time - stopTimer > StoppingSpeed)
+        if (checkingForStop && rb.velocity.magnitude < StoppingSpeed && Time.time - stopTimer > 0.5f)
         {
             rb.velocity = Vector3.zero;
             checkingForStop = false;
@@ -285,5 +285,6 @@ public class Playermovement2 : MonoBehaviour
     private void AddFuel()
     {
         if (FuelUsed > 0) FuelUsed -= 160;
+        if (FuelUsed < 0) FuelUsed = 0;
     }
 }
