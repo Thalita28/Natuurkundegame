@@ -15,6 +15,7 @@ public class Playermovement2 : MonoBehaviour
     public Transform FuelBar;
     public UnityEvent PlayerFail;
     public RawImage FuelBarSprite;
+    public GameObject[] Arrows;
 
     public ParticleSystem ThrusterUp;
     public ParticleSystem ThrusterDown;
@@ -25,9 +26,10 @@ public class Playermovement2 : MonoBehaviour
     private float stopTimer;
     public bool RotateControls;
     private bool IsMoving;
-    public float ThrusterPower;
+    private int ThrusterPower;
     public float RotateSpeed;
-    public float FuelUsed = 0.0f;
+    private float FuelUsed = 0.0f;
+    public float FuelUsedTotal = 0;
     private float MaxSpeed;
     private int StartingFuel;
     [SerializeField] int LevelFuel;
@@ -35,19 +37,24 @@ public class Playermovement2 : MonoBehaviour
     [SerializeField] bool AI = false;
     private float ZAxisMovement;
     private float XAxisMovement;
+    private bool isTanking;
 
     void Start()
     {
+        if(AI) Arrows[4].SetActive(false);
         IsMoving = false;
         checkingForStop = false;
         FuelUsed = 0;
+        FuelUsedTotal = 0;
         rb = GetComponent<Rigidbody>();
         StartingFuel = LevelFuel + PlayerPrefs.GetInt("StartingFuel", 0);
         MaxSpeed = 75 + PlayerPrefs.GetInt("MaxSpeed", 0);
+        if (!AI) ThrusterPower = 50 + PlayerPrefs.GetInt("Power", 0);
+        else ThrusterPower = 50;
         Movement();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (IsMoving) Movement();
         UpdateFuelBar();
@@ -55,6 +62,8 @@ public class Playermovement2 : MonoBehaviour
         var move_vec = rb.velocity;
         MotionFeedback.text = "Speed: " + move_vec.magnitude + "\nVector: " + move_vec + "\nFuel used: " + FuelUsed;
         Speed.text = "Snelheid: " + (int)move_vec.magnitude;
+
+        if (isTanking) AddFuel();
     }
 
     private void CheckForCompleteStop()
@@ -101,9 +110,19 @@ public class Playermovement2 : MonoBehaviour
         {
             rb.AddForce(Vector3.forward * ZAxisMovement  *ThrusterPower, ForceMode.Impulse);
             FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
+            FuelUsedTotal += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
             rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
             FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
+            FuelUsedTotal += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
             MotorAnimator(ZAxisMovement,XAxisMovement);
+            if(AI)ArrowVisualization(ZAxisMovement, XAxisMovement);
+        }
+        else
+        {
+            ThrusterUp.Stop();
+            ThrusterBack.Stop();
+            ThrusterForward.Stop();
+            ThrusterDown.Stop();
         }
 
         if (RotateControls == true)
@@ -160,17 +179,22 @@ public class Playermovement2 : MonoBehaviour
             ThrusterBack.Play();
         }
 
-        if (VerticalControl == 0.0f && HorizontalControl == 0.0f)
+        if (VerticalControl == 0.0f)
         {
             ThrusterUp.Stop();
+            ThrusterDown.Stop();
+        }
+
+        if (HorizontalControl == 0.0f)
+        {
             ThrusterBack.Stop();
             ThrusterForward.Stop();
-            ThrusterDown.Stop();
         }
     }
 
     public void allowMovement()
     {
+        if(AI)Arrows[4].SetActive(true);
         IsMoving = true;
     }
 
@@ -235,7 +259,31 @@ public class Playermovement2 : MonoBehaviour
         XAxisMovement = 0;
     }
 
+    private void ArrowVisualization(float xMove,float  zMove)
+    {
+        if (xMove > 0) Arrows[0].SetActive(true);
+        else Arrows[0].SetActive(false);
+
+        if (xMove < 0) Arrows[1].SetActive(true);
+        else Arrows[1].SetActive(false);
+
+        if (zMove > 0) Arrows[2].SetActive(true);
+        else Arrows[2].SetActive(false);
+
+        if (zMove < 0) Arrows[3].SetActive(true);
+        else Arrows[3].SetActive(false);
+    }
+
+    public void TankFuel()
+    {
+        if (rb.velocity.magnitude == 0) isTanking = true;
+        else isTanking = false;
+
+    }
 
 
-    
+    private void AddFuel()
+    {
+        if (FuelUsed > 0) FuelUsed -= 160;
+    }
 }

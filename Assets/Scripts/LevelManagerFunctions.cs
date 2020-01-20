@@ -11,9 +11,17 @@ public class LevelManagerFunctions : MonoBehaviour
     private Rigidbody rbPlayer;
     public TextMeshProUGUI panelText;
     public TextMeshProUGUI CoinAmount;
+    public TextMeshProUGUI TargetProgress;
     private Animator PanelAnimator;
     public GameObject[] targets;
+    public bool UseTimer;
+    private int StationIndex;
 
+    [HideInInspector] public int[] CargoAmount = new int[] { 0, 0, 0, 0, 0 };
+    public int DifficultyFactor = 1;
+
+    private float timer;
+    private float FinishTime;
     private int path;
     private string SceneName;
     [SerializeField] int thisIndex;
@@ -24,7 +32,9 @@ public class LevelManagerFunctions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        CargoAmount = new int[] { 0, 0, 0, 0};
+        Debug.Log(CargoAmount.Length);
+        StationIndex = 0;
         PanelAnimator = panel.GetComponent<Animator>();
         if(AILevel)PanelAnimator.SetTrigger("Choice");
         else PanelAnimator.SetTrigger("Start");
@@ -32,16 +42,26 @@ public class LevelManagerFunctions : MonoBehaviour
 
         SceneName = SceneManager.GetActiveScene().name;
 
-        path = 10 - targets.Length;
-
-        
+        path = 0;
+        CargoAmount[1] = 0;
+        CargoAmount[2] = 0;
+        CargoAmount[3] = 0;
         rbPlayer = player.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (path != -1)
+        {
+            if (thisBlockLevel == 0) TargetProgress.text = "Astronauten gered: " + path + "/" + targets.Length;
+            else if (thisBlockLevel == 1) TargetProgress.text = "Vracht afgeleverd: " + path + "/" + targets.Length;
+        }
+        else
+        {
+            if (thisBlockLevel == 0) TargetProgress.text = "Astronauten gered: " + targets.Length + "/" + targets.Length;
+            else if (thisBlockLevel == 1) TargetProgress.text = "Vracht afgeleverd: " + targets.Length + "/" + targets.Length;
+        }
     }
 
     public void EndLevel(string TargetAction)
@@ -59,9 +79,10 @@ public class LevelManagerFunctions : MonoBehaviour
         }
         else if (TargetAction == "NextLevel")
         {
-            if (PlayerPrefs.GetInt("levelProgress" + thisBlockLevel) == thisIndex) PlayerPrefs.SetInt("levelProgress" + thisBlockLevel, (thisIndex+1));
             
-            SceneManager.LoadScene("Level_"+thisBlockLevel+"_"+(thisIndex+1));
+            if (PlayerPrefs.GetInt("levelProgress" + thisBlockLevel) == thisIndex) PlayerPrefs.SetInt("levelProgress" + thisBlockLevel, (thisIndex+1));
+            if(thisIndex == 8) SceneManager.LoadScene("MissionMenu");
+            else SceneManager.LoadScene("Level_"+thisBlockLevel+"_"+(thisIndex+1));
         }
         else if (TargetAction == "Retry")
         {
@@ -80,20 +101,56 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void PlayerOnTarget()
     {
-        if (rbPlayer.velocity.magnitude == 0 && path == 10)
+        if (rbPlayer.velocity.magnitude == 0 && path == targets.Length)
         {
-            path = 0;
-            panelText.text = "Level Voltooid!";
+            path = -1;
 
-            if (PlayerPrefs.GetInt("levelProgress" + thisBlockLevel) == thisIndex)
+            Playermovement2 PlayerScript = player.GetComponent<Playermovement2>();
+            var UsedFuel = PlayerScript.FuelUsedTotal;
+            if (UseTimer)
             {
-                PlayerPrefs.SetInt("Coins", 100 + PlayerPrefs.GetInt("Coins", 0));
-                CoinAmount.text = "100	    verdiend!";
+                FinishTime = Time.time - timer;
+
+                if (FinishTime < PlayerPrefs.GetFloat("Time_" + thisBlockLevel + "_" + thisIndex, -1) || PlayerPrefs.GetFloat("Time_" + thisBlockLevel + "_" + thisIndex, -1) == -1)
+                {
+                    PlayerPrefs.SetFloat("Time_" + thisBlockLevel + "_" + thisIndex, FinishTime);
+                    panelText.text = "Level Voltooid!\nFinish tijd: " + FinishTime.ToString("f1") + "  (Nieuw Record!)";
+                }
+                else panelText.text = "Level Voltooid!\nFinish tijd: " + FinishTime.ToString("f1");
+
+                panelText.text = panelText.text + "\nBrandstofverbruik: " + (int)(UsedFuel / 100);
+
+                UsedFuel /= 1000;
+
+                int Score =(int)(UsedFuel * Mathf.Pow(FinishTime, 1.5f)/DifficultyFactor);
+               
+
+                if ( Score < PlayerPrefs.GetInt("Score_" + thisBlockLevel + "_" + thisIndex, -1) || PlayerPrefs.GetInt("Score_" + thisBlockLevel + "_" + thisIndex, -1) == -1)
+                {
+                    PlayerPrefs.SetInt("Score_" + thisBlockLevel + "_" + thisIndex,Score);
+                    PlayerPrefs.SetInt("Fuel_" + thisBlockLevel + "_" + thisIndex, (int)(UsedFuel*10));
+                    panelText.text = panelText.text + "\nScore: " + Score + "  (Nieuw Record!)";
+                }
+                else panelText.text = panelText.text + "\nScore: " + Score;
+
             }
             else
             {
-                PlayerPrefs.SetInt("Coins", 50 + PlayerPrefs.GetInt("Coins", 0));
-                CoinAmount.text = "50	    verdiend!";
+                panelText.text = "Level Voltooid!";
+                panelText.text = panelText.text + "\nBrandstofverbruik: " + (int)(UsedFuel / 100);
+            }
+
+            
+ 
+            if (PlayerPrefs.GetInt("levelProgress" + thisBlockLevel) == thisIndex)
+            {
+                PlayerPrefs.SetInt("Coins", 100 + (DifficultyFactor) + PlayerPrefs.GetInt("Coins", 0));
+                CoinAmount.text = ""+ (100 + (DifficultyFactor)) +    "	    verdiend!";
+            }
+            else
+            {
+                PlayerPrefs.SetInt("Coins", (100 + (DifficultyFactor))/2 + PlayerPrefs.GetInt("Coins", 0));
+                CoinAmount.text = "" + (100 + (DifficultyFactor))/2 + "	    verdiend!";
             }
 
             panel.SetActive(true);
@@ -156,7 +213,7 @@ public class LevelManagerFunctions : MonoBehaviour
             {
                 case 0:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustLeft(1.98f, 12));
+                    StartCoroutine(trustLeft(1.95f, 14));
                     break;
                 case 1:
                     StartCoroutine(trustRight(2, 1));
@@ -182,15 +239,15 @@ public class LevelManagerFunctions : MonoBehaviour
                     break;
                 case 1:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustUp(2, 6));
-                    StartCoroutine(trustLeft(2, 9));
-                    StartCoroutine(trustDown(2, 9));
+                    StartCoroutine(trustUp(0.8f, 7));
+                    StartCoroutine(trustDown(0.77f, 14));
+                    StartCoroutine(trustLeft(1.96f, 14));
                     break;
                 case 2:
                     StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustDown(0.8f, 6));
-                    StartCoroutine(trustUp(0.77f, 12));
-                    StartCoroutine(trustLeft(1.95f, 12));
+                    StartCoroutine(trustDown(0.8f, 7));
+                    StartCoroutine(trustUp(0.77f, 14));
+                    StartCoroutine(trustLeft(1.95f, 14));
                     break;
             }
         }
@@ -205,29 +262,32 @@ public class LevelManagerFunctions : MonoBehaviour
                     StartCoroutine(trustRight(2, 4));
                     StartCoroutine(trustDown(2, 7));
                     StartCoroutine(trustRight(2, 9));
-                    StartCoroutine(trustLeft(2, 12));
+                    StartCoroutine(trustLeft(2, 12f));
                     StartCoroutine(trustLeft(2, 14.1f));
                     StartCoroutine(trustDown(2, 14.1f));
-                    StartCoroutine(trustRight(1.97f, 19.5f));
-                    StartCoroutine(trustUp(2, 19.5f));
-                    StartCoroutine(trustRight(2, 21.5f));
-                    StartCoroutine(trustLeft(1.97f, 26.5f));
+                    StartCoroutine(trustRight(1.97f, 20));
+                    StartCoroutine(trustUp(2, 20));
+                    StartCoroutine(trustRight(2, 22.1f));
+                    StartCoroutine(trustLeft(1.97f, 28));
                     break;
                 case 1:
                     StartCoroutine(trustUp(2, 1));
-                    StartCoroutine(trustDown(1.97f, 6));
-                    StartCoroutine(trustLeft(2, 8));
-                    StartCoroutine(trustDown(2, 8));
-                    StartCoroutine(trustRight(1.97f, 13));
-                    StartCoroutine(trustUp(2, 13));
-                    StartCoroutine(trustRight(2, 15f));
-                    StartCoroutine(trustLeft(1.97f, 19.5f));
+                    StartCoroutine(trustDown(1.97f, 7));
+                    StartCoroutine(trustLeft(2, 9));
+                    StartCoroutine(trustDown(2, 9));
+                    StartCoroutine(trustRight(1.97f, 15));
+                    StartCoroutine(trustUp(2, 15));
+                    StartCoroutine(trustRight(2, 17));
+                    StartCoroutine(trustLeft(1.97f, 23));
                     break;
                 case 2:
-                    StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustDown(0.8f, 6));
-                    StartCoroutine(trustUp(0.77f, 12));
-                    StartCoroutine(trustLeft(1.95f, 12));
+                    StartCoroutine(trustLeft(2, 1));
+                    StartCoroutine(trustRight(2, 7));
+                    StartCoroutine(trustUp(2, 7));
+                    StartCoroutine(trustLeft(1.97f, 12));
+                    StartCoroutine(trustDown(2, 12));
+                    StartCoroutine(trustDown(2, 14.1f));
+                    StartCoroutine(trustUp(1.97f, 18.5f));
                     break;
             }
         }
@@ -243,6 +303,42 @@ public class LevelManagerFunctions : MonoBehaviour
     public void ShowPanel()
     {
         PanelAnimator.SetBool("IsHidden", false);
+    }
+
+    public void StartTimer()
+    {
+        timer = Time.time;
+    }
+
+    public void LoadCargo(string indexstring)
+    {
+        int index = indexstring[1] - 48;
+        int color = indexstring[0] - 48;
+
+        if (StationIndex != 0)
+        {
+           targets[index].SetActive(false);
+           CargoAmount[color]++;
+           rbPlayer.mass += (50 * color);
+        }
 
     }
+
+    public void ShipAtStation(int index)
+    {
+        if (rbPlayer.velocity.magnitude == 0) StationIndex = index;
+        else StationIndex = 0;
+    }
+
+    public void UnLoadCargo(int color)
+    {
+        if(StationIndex == color && CargoAmount[color] > 0)
+        {
+            CargoAmount[color] -= 1;
+            path += 1;
+            PlayerOnTarget();
+        }
+    }
+
+
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class RotationScript : MonoBehaviour
 {
     public float xAxis, yAxis, zAxis;
-    void Update()
+    void FixedUpdate()
     {
         transform.Rotate(xAxis, yAxis, zAxis);
     }
