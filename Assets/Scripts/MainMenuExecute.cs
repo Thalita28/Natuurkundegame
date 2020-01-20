@@ -62,6 +62,15 @@ public class MainMenuExecute : MonoBehaviour
             PlayerPrefs.SetInt("Score_0_"+i, -1);
             PlayerPrefs.SetInt("Fuel_0_" + i, -1);
             PlayerPrefs.SetFloat("Time_0_" + i, -1);
+            PlayerPrefs.SetFloat("ScoreTime_0_" + i,-1);
+        }
+
+        for (i = 1; i < 4; i++)
+        {
+            PlayerPrefs.SetInt("Score_1_" + i, -1);
+            PlayerPrefs.SetInt("Fuel_1_" + i, -1);
+            PlayerPrefs.SetFloat("Time_1_" + i, -1);
+            PlayerPrefs.SetFloat("ScoreTime_1_" + i, -1);
         }
 
         PlayerPrefs.SetString("PlayerName", "Name...");
