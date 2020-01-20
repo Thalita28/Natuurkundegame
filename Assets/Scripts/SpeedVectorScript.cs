@@ -12,10 +12,11 @@ public class SpeedVectorScript : MonoBehaviour
     public GameObject SpeedGaugeScreen;
     public GameObject SpeedGaugeTrim;
     public Material SpeedGaugeTrimmaterial;
-    public int GageScale; //gelijk aan MaxSpeed
+    private int GageScale; //gelijk aan MaxSpeed
 
     private void Start()
     {
+        GageScale = 75 + PlayerPrefs.GetInt("MaxSpeed", 0);
         PositiveSpeedZ.transform.localScale = new Vector3(0, 0, 0);
         NegativeSpeedZ.transform.localScale = new Vector3(0, 0, 0);
         PositiveSpeedX.transform.localScale = new Vector3(0, 0, 0);
