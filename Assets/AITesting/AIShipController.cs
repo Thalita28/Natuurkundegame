@@ -28,13 +28,15 @@ public class AIShipController : MonoBehaviour
 
     private Vector3 TargetPosition;
     private int WaypointIndex = 0;
+    private int EndPointIndex = 0;
     private bool ActiveEndpoint = false;
 
     private bool IsTransitioning = false;
 
     void Start()
     {
-        TargetPosition = new Vector3(Waypoints[0].transform.position.x, transform.position.y, Waypoints[0].transform.position.z);
+        FindNearestWayPoint();
+        TargetPosition = new Vector3(Waypoints[WaypointIndex].transform.position.x, transform.position.y, Waypoints[WaypointIndex].transform.position.z);
         checkingForStop = false;
 
         rb = GetComponent<Rigidbody>();
@@ -46,10 +48,10 @@ public class AIShipController : MonoBehaviour
     {
         GetToVelocity();
         GetToPosition();
-        ManageWayPoints();
+        CheckForWayPoints();
     }
 
-    private void ManageWayPoints()
+    private void CheckForWayPoints()
     {
 
         if (ActiveEndpoint)
@@ -57,7 +59,7 @@ public class AIShipController : MonoBehaviour
             if (Vector3.Distance(TargetPosition, transform.position) < 4 && rb.velocity.magnitude < 0.5 && !IsTransitioning)
             {
                 IsTransitioning = true;
-                StartCoroutine(NextWayPoint(10));
+                StartCoroutine(NextWayPoint(2));
             }
         }
         else
@@ -73,11 +75,12 @@ public class AIShipController : MonoBehaviour
     IEnumerator NextWayPoint(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
+        
         WaypointIndex++;
         if (WaypointIndex == Waypoints.Length) WaypointIndex = 0;
 
         TargetPosition = new Vector3(Waypoints[WaypointIndex].transform.position.x, transform.position.y, Waypoints[WaypointIndex].transform.position.z);
-        if (WaypointIndex == 4) ActiveEndpoint = true;
+        if (WaypointIndex == 0 || WaypointIndex == 3 || WaypointIndex == 4) ActiveEndpoint = true;
         else ActiveEndpoint = false;
         IsTransitioning = false;
     }
@@ -216,16 +219,39 @@ public class AIShipController : MonoBehaviour
     private void GetToPosition()
     {
         Vector3 diff = transform.position - TargetPosition;
+        float factor, factor2;
 
         TargetXAxis = -diff[0];
         TargetZAxis = -diff[2];
 
+        factor = Mathf.Abs(TargetZAxis) / (Mathf.Abs(TargetXAxis) + Mathf.Abs(TargetZAxis));
+        factor2 = Mathf.Abs(TargetXAxis) / (Mathf.Abs(TargetXAxis) + Mathf.Abs(TargetZAxis));
         if (TargetXAxis > TargetSpeed) TargetXAxis = TargetSpeed;
         if (TargetXAxis < -TargetSpeed) TargetXAxis = -TargetSpeed;
         if (TargetZAxis > TargetSpeed) TargetZAxis = TargetSpeed;
         if (TargetZAxis < -TargetSpeed) TargetZAxis = -TargetSpeed;
 
+        TargetZAxis *= factor;
+        TargetXAxis *= factor2;
+
     }
 
+
+    private void FindNearestWayPoint()
+    {
+        float distance = 9999999;
+        int NearestWayPoint = 0;
+        int i;
+        for (i = 0; i < Waypoints.Length; i++)
+        {
+            if (Vector3.Distance(transform.position, Waypoints[i].transform.position) < distance)
+            { 
+                distance = Vector3.Distance(transform.position, Waypoints[i].transform.position);
+                NearestWayPoint = i;
+            }
+        }
+
+        WaypointIndex = NearestWayPoint;
+    }
 
 }

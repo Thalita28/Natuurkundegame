@@ -16,6 +16,7 @@ public class Playermovement2 : MonoBehaviour
     public UnityEvent PlayerFail;
     public RawImage FuelBarSprite;
     public GameObject[] Arrows;
+    public GameObject[] MissionTargets;
 
     public ParticleSystem ThrusterUp;
     public ParticleSystem ThrusterDown;
@@ -40,10 +41,13 @@ public class Playermovement2 : MonoBehaviour
     private float XAxisMovement;
     private bool isTanking;
     private float TargetXAxis, TargetZAxis = 0;
-   // private float startingMass;
+    private Vector3 TargetPosition;
+    private bool AutoPilotOn = false;
+    // private float startingMass;
 
     void Start()
     {
+        MissionTargets = GameObject.FindGameObjectsWithTag("StationPlatform");
         if(AI) Arrows[4].SetActive(false);
         IsMoving = false;
         checkingForStop = false;
@@ -59,14 +63,31 @@ public class Playermovement2 : MonoBehaviour
 
     }
 
-    public void Update()
-    {
-        if (AI) GetToVelocity();
-    }
-    
+  
 
     public void FixedUpdate()
     {
+        if(Input.GetKeyDown(KeyCode.N))
+        {
+            AutoPilotOn = true;
+            AI = true;
+            FindNearestWayPoint(1);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.P) && !AI)
+        {
+            AutoPilotOn = true;
+            AI = true;
+            FindNearestWayPoint(0);
+        }
+        if (AutoPilotOn)
+        {
+            GetToPosition();
+            CheckIfTargetReached();
+        }
+        if (AI) GetToVelocity();
+
         if (IsMoving) Movement();
         UpdateFuelBar();
         CheckForCompleteStop();
@@ -134,7 +155,7 @@ public class Playermovement2 : MonoBehaviour
             FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower))/10;
             FuelUsedTotal += Mathf.Abs((int)(XAxisMovement * ThrusterPower))/10;
             MotorAnimator(ZAxisMovement,XAxisMovement);
-            if(AI)ArrowVisualization(ZAxisMovement, XAxisMovement);
+            if(AI && !AutoPilotOn)ArrowVisualization(ZAxisMovement, XAxisMovement);
         }
         else
         {
@@ -213,7 +234,7 @@ public class Playermovement2 : MonoBehaviour
 
     public void allowMovement()
     {
-        if(AI)Arrows[4].SetActive(true);
+        if(AI && !AutoPilotOn)Arrows[4].SetActive(true);
         IsMoving = true;
     }
 
@@ -315,17 +336,76 @@ public class Playermovement2 : MonoBehaviour
     public void GetToVelocity()
     {
         float accuracy = 1f;
+        float corrector = ( rb.mass/ ThrusterPower) / 1.5f;
 
         //float diff = Mathf.Abs(rb.velocity.x - TargetXAxis);
-        if (rb.velocity.x - TargetXAxis > accuracy) XAxisMovement = -1;// *(diff/50);
-        else if (TargetXAxis - rb.velocity.x > accuracy) XAxisMovement = 1;// * (diff / 50);
+        if (rb.velocity.x - TargetXAxis > accuracy) XAxisMovement = -1;
+        else if (TargetXAxis - rb.velocity.x > accuracy) XAxisMovement = 1;
         else XAxisMovement = 0;
 
         //diff = Mathf.Abs(rb.velocity.z - TargetZAxis);
-        if (rb.velocity.z - TargetZAxis > accuracy) ZAxisMovement = -1; // *(diff / 50);
-        else if (TargetZAxis - rb.velocity.z > accuracy) ZAxisMovement = 1;// * (diff / 50);
+        if (rb.velocity.z - TargetZAxis > accuracy) ZAxisMovement = -1; 
+        else if (TargetZAxis - rb.velocity.z > accuracy) ZAxisMovement = 1;
         else ZAxisMovement = 0;
     }
 
+
+    private void GetToPosition()
+    {
+        Vector3 diff = transform.position - TargetPosition;
+        float factor, factor2;
+        float targetSpeed = (MaxSpeed*1.3f);
+        float factor3 =  ((StartingFuel - FuelUsed)*7.5f) / rb.mass;
+        if (targetSpeed > factor3) targetSpeed = factor3;
+
+        float corrector = (rb.mass / ThrusterPower)*2;
+
+
+        TargetXAxis = -diff[0]/corrector;
+        TargetZAxis = -diff[2]/corrector;
+
+        factor = Mathf.Abs(TargetZAxis) / (Mathf.Abs(TargetXAxis) + Mathf.Abs(TargetZAxis));
+        factor2 = Mathf.Abs(TargetXAxis) / (Mathf.Abs(TargetXAxis) + Mathf.Abs(TargetZAxis));
+        if (TargetXAxis > targetSpeed) TargetXAxis = targetSpeed;
+        if (TargetXAxis < -targetSpeed) TargetXAxis = -targetSpeed;
+        if (TargetZAxis > targetSpeed) TargetZAxis = targetSpeed;
+        if (TargetZAxis < -targetSpeed) TargetZAxis = -targetSpeed;
+
+        TargetZAxis *= factor;
+        TargetXAxis *= factor2;
+
+    }
+
+    private void FindNearestWayPoint(int next)
+    {
+        float distance = 9999999;
+        int NearestWayPoint = 0;
+        int i;
+        for (i = 0; i < MissionTargets.Length; i++)
+        {
+            if (Vector3.Distance(transform.position, MissionTargets[i].transform.position) < distance)
+            {
+                distance = Vector3.Distance(transform.position, MissionTargets[i].transform.position);
+                NearestWayPoint = i;
+            }
+        }
+
+        if (next == 1)
+        {
+            NearestWayPoint = (int)Random.Range(0, MissionTargets.Length);  
+        }
+
+        TargetPosition = new Vector3(MissionTargets[NearestWayPoint].transform.position.x, transform.position.y, MissionTargets[NearestWayPoint].transform.position.z);
+    }
+
+
+    private void CheckIfTargetReached()
+    {
+        if (Vector3.Distance(TargetPosition, transform.position) < 40 && rb.velocity.magnitude < 0.1)
+        {
+            AI = false;
+            AutoPilotOn = false;
+        }
+    }
 
 }
