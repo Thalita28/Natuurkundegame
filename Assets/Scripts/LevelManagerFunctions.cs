@@ -16,6 +16,7 @@ public class LevelManagerFunctions : MonoBehaviour
     public GameObject[] targets;
     public bool UseTimer;
     private int StationIndex;
+    private bool iscompleted = false;
 
     [HideInInspector] public int[] CargoAmount = new int[] { 0, 0, 0, 0, 0 };
     public int DifficultyFactor = 1;
@@ -29,7 +30,6 @@ public class LevelManagerFunctions : MonoBehaviour
     private string NextSceneName;
     [SerializeField] bool AILevel;
 
-    // Start is called before the first frame update
     void Start()
     {
         timer = 0;
@@ -105,6 +105,7 @@ public class LevelManagerFunctions : MonoBehaviour
         if (rbPlayer.velocity.magnitude == 0 && path == targets.Length)
         {
             path = -1;
+            iscompleted = true;
 
             Playermovement2 PlayerScript = player.GetComponent<Playermovement2>();
             var UsedFuel = PlayerScript.FuelUsedTotal;
@@ -166,17 +167,26 @@ public class LevelManagerFunctions : MonoBehaviour
             panel.SetActive(false);
     }
 
-
-
-    public void LevelFail()
+    public void LevelFail(string FailType)
     {
-        panelText.text = "Helaas, niet gehaald. Probeer het op een andere manier!";
+        if (!iscompleted)
+        {
+            if (FailType == "FuelGone")
+                panelText.text = "De brandstoftank is leeg. Het schip kan niet meer van snelheid en richting veranderen.";
 
-        panel.SetActive(true);
-        PanelAnimator.SetBool("IsHidden", false);
-        PanelAnimator.SetTrigger("Fail");
+            if (FailType == "OutOfBounds")
+                panelText.text = PlayerPrefs.GetString("PlayerName");
+            //PlayerPrefs.GetString("PlayerName");
 
+            if (FailType == "Crash")
+                panelText.text = "Lekker dan crashen";
+
+            panel.SetActive(true);
+            PanelAnimator.SetBool("IsHidden", false);
+            PanelAnimator.SetTrigger("Fail");
+        }
     }
+
 
     IEnumerator trustRight(int TargetAcc, float delayTime)
     {
