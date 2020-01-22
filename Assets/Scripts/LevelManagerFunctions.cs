@@ -170,6 +170,7 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void LevelFail()
     {
+        player.GetComponent<Playermovement2>().denyMovement();
         panelText.text = "Helaas, niet gehaald. Probeer het op een andere manier!";
 
         panel.SetActive(true);
