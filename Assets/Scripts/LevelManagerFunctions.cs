@@ -169,10 +169,15 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void LevelFail(string FailType)
     {
+
+        player.GetComponent<Playermovement2>().denyMovement();
+        panelText.text = "Helaas, niet gehaald. Probeer het op een andere manier!";
+
         if (!iscompleted)
         {
             if (FailType == "FuelGone")
                 panelText.text = "De brandstoftank is leeg. Het schip kan niet meer van snelheid en richting veranderen.";
+
 
             if (FailType == "OutOfBounds")
                 panelText.text = PlayerPrefs.GetString("PlayerName");

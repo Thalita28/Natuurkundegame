@@ -16,6 +16,6 @@ public class DisplayTrustPower : MonoBehaviour
 
     private void UpdateThrustPower()
     {
-        ThrusterAmount.text = "Huidige motorkracht: " + (50 + (PlayerPrefs.GetInt("Power", 0) ));
+        ThrusterAmount.text = "Huidige motorkracht: " + (500 + (PlayerPrefs.GetInt("Power", 0) ));
     }
 }

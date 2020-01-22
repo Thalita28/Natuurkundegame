@@ -15,6 +15,7 @@ TagManager:
   - fuelbarsprite
   - MinimapCamera
   - AIShip
+  - StationPlatform
   layers:
   - Default
   - TransparentFX

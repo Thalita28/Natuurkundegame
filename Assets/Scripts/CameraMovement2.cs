@@ -76,10 +76,18 @@ void Start()
 
 
 
-        if (Input.mousePosition.x < 683 && Input.mousePosition.y > 1508 )
-        {
-            OtherCamera.transform.Translate(new Vector3(0, 1, 0) * -Input.mouseScrollDelta.y * Time.deltaTime * zoomSpeed, Space.World);
-        }
-        else transform.Translate(new Vector3(0, 1, 0) * -Input.mouseScrollDelta.y * Time.deltaTime * zoomSpeed, Space.World);
+
+        transform.Translate(new Vector3(0, 1, 0) * -Input.mouseScrollDelta.y * Time.deltaTime * zoomSpeed, Space.World);
+    }
+
+
+    public void Zoom_In()
+    {
+        transform.Translate(new Vector3(0, 1, 0) * -5 * Time.deltaTime * zoomSpeed, Space.World);
+    }
+
+    public void Zoom_Out()
+    {
+        transform.Translate(new Vector3(0, 1, 0) * 5 * Time.deltaTime * zoomSpeed, Space.World);
     }
 }
