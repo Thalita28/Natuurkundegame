@@ -326,11 +326,18 @@ public class Playermovement2 : MonoBehaviour
 
     }
 
-
     private void AddFuel()
     {
         if (FuelUsed > 0) FuelUsed -= 160;
         if (FuelUsed < 0) FuelUsed = 0;
+    }
+
+
+    public void FreezeMovement ()
+    {
+        //goeie plek voor crash animatie
+        denyMovement();
+        rb.velocity = Vector3.zero;
     }
 
     public void GetToVelocity()
@@ -348,6 +355,7 @@ public class Playermovement2 : MonoBehaviour
         else if (TargetZAxis - rb.velocity.z > accuracy) ZAxisMovement = 1;
         else ZAxisMovement = 0;
     }
+
 
 
     private void GetToPosition()
@@ -407,5 +415,6 @@ public class Playermovement2 : MonoBehaviour
             AutoPilotOn = false;
         }
     }
+
 
 }
