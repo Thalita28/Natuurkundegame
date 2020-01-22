@@ -22,9 +22,12 @@ public class SetPlayerName : MonoBehaviour
 
     public void SubmitName()
     {
-        PlayerPrefs.SetString("PlayerName", playername.text);
+        string decent_name = playername.text.Substring(0, 10);
+        PlayerPrefs.SetString("PlayerName", decent_name);
         //myText.text = playername.text; //alleen voor testen in editor
         myText.text = PlayerPrefs.GetString("PlayerName", "Player Name");
-        //Debug.Log(playername.text);
+        Debug.Log(decent_name);
+
+
     }
 }

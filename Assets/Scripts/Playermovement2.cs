@@ -29,6 +29,7 @@ public class Playermovement2 : MonoBehaviour
     private int ThrusterPower;
     public float RotateSpeed;
     private float FuelUsed = 0.0f;
+    private float OldFuelUsed = 0;
     public float FuelUsedTotal = 0;
     private float MaxSpeed;
     private int StartingFuel;
@@ -38,6 +39,8 @@ public class Playermovement2 : MonoBehaviour
     private float ZAxisMovement;
     private float XAxisMovement;
     private bool isTanking;
+    private float TargetXAxis, TargetZAxis = 0;
+   // private float startingMass;
 
     void Start()
     {
@@ -49,10 +52,18 @@ public class Playermovement2 : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         StartingFuel = LevelFuel + PlayerPrefs.GetInt("StartingFuel", 0);
         MaxSpeed = 75 + PlayerPrefs.GetInt("MaxSpeed", 0);
-        if (!AI) ThrusterPower = 50 + PlayerPrefs.GetInt("Power", 0);
-        else ThrusterPower = 50;
+        rb.mass += StartingFuel/100;
+        if (!AI) ThrusterPower = 500 + PlayerPrefs.GetInt("Power", 0);
+        else ThrusterPower = 500;
         Movement();
+
     }
+
+    public void Update()
+    {
+        if (AI) GetToVelocity();
+    }
+    
 
     public void FixedUpdate()
     {
@@ -64,6 +75,14 @@ public class Playermovement2 : MonoBehaviour
         Speed.text = "v = " + (int)move_vec.magnitude + " m/s";
 
         if (isTanking) AddFuel();
+
+        if(OldFuelUsed != FuelUsed)
+        {
+            rb.mass += (OldFuelUsed - FuelUsed)/100;
+            OldFuelUsed = FuelUsed;
+        }
+        
+
     }
 
     private void CheckForCompleteStop()
@@ -109,11 +128,11 @@ public class Playermovement2 : MonoBehaviour
         if (StartingFuel > FuelUsed)
         {
             rb.AddForce(Vector3.forward * ZAxisMovement  *ThrusterPower, ForceMode.Impulse);
-            FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
-            FuelUsedTotal += Mathf.Abs((int)(ZAxisMovement * ThrusterPower));
+            FuelUsed += Mathf.Abs((int)(ZAxisMovement * ThrusterPower))/10;
+            FuelUsedTotal += Mathf.Abs((int)(ZAxisMovement * ThrusterPower))/10;
             rb.AddForce(Vector3.right * XAxisMovement * ThrusterPower, ForceMode.Impulse);
-            FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
-            FuelUsedTotal += Mathf.Abs((int)(XAxisMovement * ThrusterPower));
+            FuelUsed += Mathf.Abs((int)(XAxisMovement * ThrusterPower))/10;
+            FuelUsedTotal += Mathf.Abs((int)(XAxisMovement * ThrusterPower))/10;
             MotorAnimator(ZAxisMovement,XAxisMovement);
             if(AI)ArrowVisualization(ZAxisMovement, XAxisMovement);
         }
@@ -227,26 +246,31 @@ public class Playermovement2 : MonoBehaviour
     }
 
 
-    public void trusterUp(float UpTime)
+    public void trusterUp(int TargetAcc)
     {
-        ZAxisMovement = 1;
-        Invoke("trusterStopVertical", UpTime);
+
+        TargetZAxis += TargetAcc;
+        //ZAxisMovement = 1;
+        //Invoke("trusterStopVertical", UpTime);
     }
 
-    public void trusterDown(float UpTime)
+    public void trusterDown(int TargetAcc)
     {
-        ZAxisMovement = -1;
-        Invoke("trusterStopVertical", UpTime);
+        TargetZAxis -= TargetAcc;
+       // ZAxisMovement = -1;
+        //Invoke("trusterStopVertical", UpTime);
     }
-    public void trusterRight(float UpTime)
+    public void trusterRight(int TargetAcc)
     {
-        XAxisMovement = 1;
-        Invoke("trusterStopHorizontal", UpTime);
+        TargetXAxis += TargetAcc;
+        //XAxisMovement = 1;
+        //Invoke("trusterStopHorizontal", UpTime);
     }
-    public void trusterLeft(float UpTime)
+    public void trusterLeft(int TargetAcc)
     {
-        XAxisMovement = -1;
-        Invoke("trusterStopHorizontal", UpTime);
+        TargetXAxis -= TargetAcc;
+       // XAxisMovement = -1;
+       // Invoke("trusterStopHorizontal", UpTime);
     }
 
     private void trusterStopVertical()
@@ -287,10 +311,27 @@ public class Playermovement2 : MonoBehaviour
         if (FuelUsed < 0) FuelUsed = 0;
     }
 
+
     public void FreezeMovement ()
     {
         //goeie plek voor crash animatie
         denyMovement();
         rb.velocity = Vector3.zero;
     }
+
+    public void GetToVelocity()
+    {
+        float accuracy = 1f;
+
+        //float diff = Mathf.Abs(rb.velocity.x - TargetXAxis);
+        if (rb.velocity.x - TargetXAxis > accuracy) XAxisMovement = -1;// *(diff/50);
+        else if (TargetXAxis - rb.velocity.x > accuracy) XAxisMovement = 1;// * (diff / 50);
+        else XAxisMovement = 0;
+
+        //diff = Mathf.Abs(rb.velocity.z - TargetZAxis);
+        if (rb.velocity.z - TargetZAxis > accuracy) ZAxisMovement = -1; // *(diff / 50);
+        else if (TargetZAxis - rb.velocity.z > accuracy) ZAxisMovement = 1;// * (diff / 50);
+        else ZAxisMovement = 0;
+    }
+
 }

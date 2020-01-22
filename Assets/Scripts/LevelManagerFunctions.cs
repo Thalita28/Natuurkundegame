@@ -124,10 +124,10 @@ public class LevelManagerFunctions : MonoBehaviour
 
                 UsedFuel /= 1000;
 
-                int Score =(int)(UsedFuel * Mathf.Pow(FinishTime, 1.5f)/DifficultyFactor);
+                int Score = 1000000/(int)(UsedFuel * Mathf.Pow(FinishTime, 1.5f)/DifficultyFactor);
                
 
-                if ( Score < PlayerPrefs.GetInt("Score_" + thisBlockLevel + "_" + thisIndex, -1) || PlayerPrefs.GetInt("Score_" + thisBlockLevel + "_" + thisIndex, -1) == -1)
+                if ( Score > PlayerPrefs.GetInt("Score_" + thisBlockLevel + "_" + thisIndex, -1) || PlayerPrefs.GetInt("Score_" + thisBlockLevel + "_" + thisIndex, -1) == -1)
                 {
                     PlayerPrefs.SetInt("Score_" + thisBlockLevel + "_" + thisIndex,Score);
                     PlayerPrefs.SetInt("Fuel_" + thisBlockLevel + "_" + thisIndex, (int)(UsedFuel*10));
@@ -187,31 +187,30 @@ public class LevelManagerFunctions : MonoBehaviour
         }
     }
 
-    
 
-    IEnumerator trustRight(float UpTime, float delayTime)
+    IEnumerator trustRight(int TargetAcc, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
 
-        player.GetComponent<Playermovement2>().trusterRight(UpTime);
+        player.GetComponent<Playermovement2>().trusterRight(TargetAcc);
     }
-    IEnumerator trustUp(float UpTime, float delayTime)
+    IEnumerator trustUp(int TargetAcc, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
 
-        player.GetComponent<Playermovement2>().trusterUp(UpTime);
+        player.GetComponent<Playermovement2>().trusterUp(TargetAcc);
     }
-    IEnumerator trustDown(float UpTime, float delayTime)
+    IEnumerator trustDown(int TargetAcc, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
 
-        player.GetComponent<Playermovement2>().trusterDown(UpTime);
+        player.GetComponent<Playermovement2>().trusterDown(TargetAcc);
     }
-    IEnumerator trustLeft(float UpTime, float delayTime)
+    IEnumerator trustLeft(int TargetAcc, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
 
-        player.GetComponent<Playermovement2>().trusterLeft(UpTime);
+        player.GetComponent<Playermovement2>().trusterLeft(TargetAcc);
     }
 
 
@@ -225,18 +224,18 @@ public class LevelManagerFunctions : MonoBehaviour
             switch (answer)
             {
                 case 0:
-                    StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustLeft(1.95f, 14));
+                    StartCoroutine(trustRight(50, 1));
+                    StartCoroutine(trustLeft(50, 14));
                     break;
                 case 1:
-                    StartCoroutine(trustRight(2, 1));
+                    StartCoroutine(trustRight(50, 1));
                     break;
                 case 2:
-                    StartCoroutine(trustLeft(2, 1));
-                    StartCoroutine(trustRight(2, 8));
+                    StartCoroutine(trustLeft(50, 1));
+                    StartCoroutine(trustRight(50, 8));
                     break;
                 case 3:
-                    StartCoroutine(trustRight(2.5f, 1));
+                    StartCoroutine(trustRight(50,1));
                     break;
             }
         }
@@ -246,21 +245,21 @@ public class LevelManagerFunctions : MonoBehaviour
             switch (answer)
             {
                 case 0:
-                    StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustDown(2, 6));
-                    StartCoroutine(trustUp(2, 9));
+                    StartCoroutine(trustRight(50, 1));
+                    StartCoroutine(trustDown(50, 6));
+                    StartCoroutine(trustUp(50, 9));
                     break;
                 case 1:
-                    StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustUp(0.8f, 7));
-                    StartCoroutine(trustDown(0.77f, 14));
-                    StartCoroutine(trustLeft(1.96f, 14));
+                    StartCoroutine(trustRight(50, 1));
+                    StartCoroutine(trustUp(20, 7));
+                    StartCoroutine(trustDown(20, 14));
+                    StartCoroutine(trustLeft(50, 14));
                     break;
                 case 2:
-                    StartCoroutine(trustRight(2, 1));
-                    StartCoroutine(trustDown(0.8f, 7));
-                    StartCoroutine(trustUp(0.77f, 14));
-                    StartCoroutine(trustLeft(1.95f, 14));
+                    StartCoroutine(trustRight(50, 1));
+                    StartCoroutine(trustDown(20, 7));
+                    StartCoroutine(trustUp(20, 14));
+                    StartCoroutine(trustLeft(50, 14));
                     break;
             }
         }
@@ -270,37 +269,37 @@ public class LevelManagerFunctions : MonoBehaviour
             switch (answer)
             {
                 case 0:
-                    StartCoroutine(trustUp(2, 1));
-                    StartCoroutine(trustLeft(2, 1));
-                    StartCoroutine(trustRight(2, 4));
-                    StartCoroutine(trustDown(2, 7));
-                    StartCoroutine(trustRight(2, 9));
-                    StartCoroutine(trustLeft(2, 12f));
-                    StartCoroutine(trustLeft(2, 14.1f));
-                    StartCoroutine(trustDown(2, 14.1f));
-                    StartCoroutine(trustRight(1.97f, 20));
-                    StartCoroutine(trustUp(2, 20));
-                    StartCoroutine(trustRight(2, 22.1f));
-                    StartCoroutine(trustLeft(1.97f, 28));
+                    StartCoroutine(trustUp(50, 1));
+                    StartCoroutine(trustLeft(50, 1));
+                    StartCoroutine(trustRight(50, 4));
+                    StartCoroutine(trustDown(50, 7));
+                    StartCoroutine(trustRight(50, 9));
+                    StartCoroutine(trustLeft(50, 12f));
+                    StartCoroutine(trustLeft(50, 14.1f));
+                    StartCoroutine(trustDown(50, 14.1f));
+                    StartCoroutine(trustRight(50, 20));
+                    StartCoroutine(trustUp(50, 20));
+                    StartCoroutine(trustRight(50, 22.1f));
+                    StartCoroutine(trustLeft(50, 28));
                     break;
                 case 1:
-                    StartCoroutine(trustUp(2, 1));
-                    StartCoroutine(trustDown(1.97f, 7));
-                    StartCoroutine(trustLeft(2, 9));
-                    StartCoroutine(trustDown(2, 9));
-                    StartCoroutine(trustRight(1.97f, 15));
-                    StartCoroutine(trustUp(2, 15));
-                    StartCoroutine(trustRight(2, 17));
-                    StartCoroutine(trustLeft(1.97f, 23));
+                    StartCoroutine(trustUp(50, 1));
+                    StartCoroutine(trustDown(50, 7));
+                    StartCoroutine(trustLeft(50, 9));
+                    StartCoroutine(trustDown(50, 9));
+                    StartCoroutine(trustRight(50, 16));
+                    StartCoroutine(trustUp(50, 16));
+                    StartCoroutine(trustRight(50, 18));
+                    StartCoroutine(trustLeft(50, 24));
                     break;
                 case 2:
-                    StartCoroutine(trustLeft(2, 1));
-                    StartCoroutine(trustRight(2, 7));
-                    StartCoroutine(trustUp(2, 7));
-                    StartCoroutine(trustLeft(1.97f, 12));
-                    StartCoroutine(trustDown(2, 12));
-                    StartCoroutine(trustDown(2, 14.1f));
-                    StartCoroutine(trustUp(1.97f, 18.5f));
+                    StartCoroutine(trustLeft(50, 1));
+                    StartCoroutine(trustRight(50, 7));
+                    StartCoroutine(trustUp(50, 7));
+                    StartCoroutine(trustLeft(50, 12));
+                    StartCoroutine(trustDown(50, 12));
+                    StartCoroutine(trustDown(50, 14.1f));
+                    StartCoroutine(trustUp(50, 18.5f));
                     break;
             }
         }
@@ -333,7 +332,7 @@ public class LevelManagerFunctions : MonoBehaviour
         {
            targets[index].SetActive(false);
            CargoAmount[color]++;
-           rbPlayer.mass += (50 * color);
+           rbPlayer.mass += (500 * color);
         }
 
     }
@@ -350,6 +349,7 @@ public class LevelManagerFunctions : MonoBehaviour
         {
             CargoAmount[color] -= 1;
             path += 1;
+            rbPlayer.mass -= (500 * color);
             PlayerOnTarget();
         }
     }

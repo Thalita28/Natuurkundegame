@@ -14,6 +14,7 @@ TagManager:
   - LevelBoundry
   - fuelbarsprite
   - MinimapCamera
+  - AIShip
   layers:
   - Default
   - TransparentFX
