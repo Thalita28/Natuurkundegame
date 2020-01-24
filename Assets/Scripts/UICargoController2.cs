@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine;
 
-public class UICargoController : MonoBehaviour
+public class UICargoController2 : MonoBehaviour
 {
 
     public GameObject player;
@@ -14,7 +14,7 @@ public class UICargoController : MonoBehaviour
     void Start()
     {
 
-      // player = GameObject.FindGameObjectWithTag("Player1");
+        //player = GameObject.Find("PlayerShip1");
         rb = player.GetComponent<Rigidbody>();
         ManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManagerFunctions>();
     }
@@ -22,7 +22,6 @@ public class UICargoController : MonoBehaviour
 
     void Update()
     {
-      
-        CargoNumbers.text = "" + ManagerScript.CargoAmount[1] + "        " + ManagerScript.CargoAmount[2] + "         " + ManagerScript.CargoAmount[3] +  "\n\nmassa = " + (int)rb.mass + " kg";
+        CargoNumbers.text = "" + ManagerScript.CargoAmount[1] + "        " + ManagerScript.CargoAmount[2] + "         " + ManagerScript.CargoAmount[3] + "\n\nmassa = " + (int)rb.mass + " kg";
     }
 }

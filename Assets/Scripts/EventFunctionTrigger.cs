@@ -22,11 +22,11 @@ public class EventFunctionTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && triggerType == 0) MyEvent.Invoke();
+        if(other.CompareTag("Player1") && triggerType == 0) MyEvent.Invoke();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && triggerType == 1) MyEvent.Invoke();
+        if (other.CompareTag("Player1") && triggerType == 1) MyEvent.Invoke();
     }
 }
