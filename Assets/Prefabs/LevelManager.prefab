@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4039176702561135144}
   m_Layer: 0
   m_Name: LevelManager
-  m_TagString: GameController
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,9 +47,11 @@ MonoBehaviour:
   player: {fileID: 0}
   panelText: {fileID: 0}
   CoinAmount: {fileID: 0}
+  TargetProgress: {fileID: 0}
   targets: []
   UseTimer: 0
-  CargoAmount: 0
+  CargoAmount: 
+  DifficultyFactor: 1
   thisIndex: 0
   thisBlockLevel: 0
   AILevel: 0

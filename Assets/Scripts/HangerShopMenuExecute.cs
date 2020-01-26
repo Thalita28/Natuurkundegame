@@ -86,8 +86,8 @@ public class HangerShopMenuExecute : MonoBehaviour
 
     public void OpenEngineShop()
     {
-        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed",0)*2));
-        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power",0) * 10));
+        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed",0)));
+        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power",0) ));
 
         bool menuState = EngineStuff[0].activeSelf;
         int i;
@@ -164,26 +164,26 @@ public class HangerShopMenuExecute : MonoBehaviour
 
     public void UpgradePower()
     {
-        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("Power",0)* 10 )) - 1)
+        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("Power",0))) - 1)
         {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("Power", 0) * 10)));
-            PlayerPrefs.SetInt("Power", PlayerPrefs.GetInt("Power") + 5);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("Power", 0) )));
+            PlayerPrefs.SetInt("Power", PlayerPrefs.GetInt("Power") + 50);
         }
 
-        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power", 0) * 10));
+        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power", 0)));
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
 
     public void UpgradeMaxSpeed()
     {
-        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2)) - 1)
+        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("MaxSpeed", 0))) - 1)
         {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2)));
-            PlayerPrefs.SetInt("MaxSpeed", PlayerPrefs.GetInt("MaxSpeed") + 10);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("MaxSpeed", 0))));
+            PlayerPrefs.SetInt("MaxSpeed", PlayerPrefs.GetInt("MaxSpeed") + 100);
         }
 
-        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2));
+        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) ));
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
