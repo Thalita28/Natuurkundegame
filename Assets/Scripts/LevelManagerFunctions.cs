@@ -184,7 +184,7 @@ public class LevelManagerFunctions : MonoBehaviour
             //PlayerPrefs.GetString("PlayerName");
 
             if (FailType == "Crash")
-                panelText.text = "Oei!" + PlayerPrefs.GetString("PlayerName") +  ", je hebt iets geraakt, daar is het schip niet voor gemaakt";
+                panelText.text = "Oei! " + PlayerPrefs.GetString("PlayerName") +  ", je hebt iets geraakt, daar is het schip niet voor gemaakt!";
             if (FailType == "WrongAnswer") panelText.text = "Dat klopt niet! Probeer het antwoord uit te vinden door het schip te gebruiken";
 
             panel.SetActive(true);
