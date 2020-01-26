@@ -10,14 +10,17 @@ public class SpawnAsteroid : MonoBehaviour
 
     void Start()
     {
+        int i;
+        for(i =0; i < 20; i++)
+        {
+            float spawnPointY = Random.Range(yMin, yMax);
+            float spawnPointZ = Random.Range(zMin, zMax);
+            Vector3 spawnPosition = new Vector3(spawnPointX+(i*250), spawnPointY, spawnPointZ);
+            Instantiate(Asteroid, spawnPosition, Quaternion.identity);
+        }
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
-
-    /*private void FixedUpdate()
-    {
-        Spawn();
-    }*/
 
     void Spawn()
     {
