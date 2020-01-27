@@ -74,7 +74,7 @@ public class MainMenuExecute : MonoBehaviour
             PlayerPrefs.SetFloat("ScoreTime_1_" + i, -1);
         }
 
-        PlayerPrefs.SetString("PlayerName", "Name...");
+        PlayerPrefs.SetString("PlayerName", "Speler1");
 
 
     }
