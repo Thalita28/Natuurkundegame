@@ -180,12 +180,14 @@ public class LevelManagerFunctions : MonoBehaviour
 
 
             if (FailType == "OutOfBounds")
-                panelText.text = PlayerPrefs.GetString("PlayerName") + " volgende keer dichterbij de missie blijven!";
+                panelText.text = PlayerPrefs.GetString("PlayerName") + " volgende keer dichterbij het doel blijven!";
             //PlayerPrefs.GetString("PlayerName");
 
             if (FailType == "Crash")
                 panelText.text = "Oei! " + PlayerPrefs.GetString("PlayerName") +  ", je hebt iets geraakt, daar is het schip niet voor gemaakt!";
-            if (FailType == "WrongAnswer") panelText.text = "Dat klopt niet! Probeer het antwoord uit te vinden door het schip te gebruiken";
+            
+            if (FailType == "WrongAnswer") 
+                panelText.text = "Aah jammer, " + PlayerPrefs.GetString("PlayerName") + "Gelukkig kan je van je fouten leren. Probeer de verchillende antwoorden uit met het schip.";
 
             panel.SetActive(true);
             PanelAnimator.SetBool("IsHidden", false);
@@ -224,9 +226,18 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void ExecuteAnswer(int answer)
     {
-
-
         if (thisBlockLevel == 1 && thisIndex == 5)
+        {
+            if (answer == 0)
+            {
+                path = targets.Length;
+                PlayerOnTarget();
+            }
+            else LevelFail("WrongAnswer");
+            return;
+
+        }
+        if (thisBlockLevel == 1 && thisIndex == 6)
         {
             if (answer == 2)
             {
@@ -234,8 +245,17 @@ public class LevelManagerFunctions : MonoBehaviour
                 PlayerOnTarget();
             }
             else LevelFail("WrongAnswer");
+            return;
+        }
 
-
+        if (thisBlockLevel == 1 && thisIndex == 7)
+        {
+            if (answer == 1)
+            {
+                path = targets.Length;
+                PlayerOnTarget();
+            }
+            else LevelFail("WrongAnswer");
             return;
         }
 
@@ -329,7 +349,7 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void HidePanel()
     {
-        if (thisBlockLevel == 1 && thisIndex == 5)
+        if (thisBlockLevel == 1 && (thisIndex == 5 || thisIndex == 6 || thisIndex == 7))
         {
             player.GetComponent<Playermovement2>().allowMovement();
             //player.GetComponent<Playermovement2>().OpenParameterPanel();

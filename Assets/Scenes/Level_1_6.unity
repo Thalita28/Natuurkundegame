@@ -591,7 +591,7 @@ PrefabInstance:
     - target: {fileID: 4039176702561135144, guid: 6d06cbb6c451fb14b93f3851ab1bb466,
         type: 3}
       propertyPath: thisIndex
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4039176702561135144, guid: 6d06cbb6c451fb14b93f3851ab1bb466,
         type: 3}
@@ -1341,8 +1341,8 @@ PrefabInstance:
     - target: {fileID: 6763751857084502934, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: Als de kracht van het schip toeneemt. Wat gebeurd er dan met de versnelling?
-        Versnelling is de verandering van snelheid.
+      value: Als het schip twee keer zo veel massa heeft en de kracht van motor blijft
+        gelijk. Hoelang duurt het voordat het schip 50 m/s bereikt? Probeer het uit!
       objectReference: {fileID: 0}
     - target: {fileID: 6763751857084502934, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
@@ -2234,11 +2234,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: MassSlider
       objectReference: {fileID: 0}
-    - target: {fileID: 6763751857084502935, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_CullTransparentMesh
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8685263730275681233, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_TagString
@@ -2482,32 +2477,12 @@ PrefabInstance:
     - target: {fileID: 4562482868696002943, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: '   A: De versnelling wordt groter'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4562482868696002943, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 4562482868696002943, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 28
+      value: "\tA: Twee keer zo snel "
       objectReference: {fileID: 0}
     - target: {fileID: 6101181013374126569, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: '   B:  De versnelling blijft gelijk'
-      objectReference: {fileID: 0}
-    - target: {fileID: 6101181013374126569, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 6101181013374126569, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 28
+      value: "\tB:  Even lang"
       objectReference: {fileID: 0}
     - target: {fileID: 3426329110118651759, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
@@ -2527,17 +2502,7 @@ PrefabInstance:
     - target: {fileID: 7546748243981646376, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: '   C: De versnelling wordt kleiner'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7546748243981646376, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 7546748243981646376, guid: c9e7521f4ab4b7949942870423c694f0,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 28
+      value: "\tC:  Twee keer zo lang"
       objectReference: {fileID: 0}
     - target: {fileID: 3440688377064945577, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
