@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6241913519428458548}
   - component: {fileID: 4039176702561135144}
+  - component: {fileID: 5430775647750922787}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: GameManager
@@ -55,3 +56,23 @@ MonoBehaviour:
   thisIndex: 0
   thisBlockLevel: 0
   AILevel: 0
+--- !u!114 &5430775647750922787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6241913519428458549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f943eab6224b8d4c8144c4a10aebc3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Asteroid: {fileID: 8501663085206501721, guid: 01492863e57fcf944ae398cd6c2d1735,
+    type: 3}
+  spawnTime: 5
+  zMin: -2000
+  zMax: 2000
+  yMin: -2200
+  yMax: -1900
+  spawnPointX: -2000
