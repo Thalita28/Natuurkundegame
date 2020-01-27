@@ -7,17 +7,10 @@ public class SetPlayerName : MonoBehaviour
 {
     public TextMeshProUGUI playername;
     private TextMeshProUGUI myText;
-    // Start is called before the first frame update
     void Start()
     {
         myText = gameObject.GetComponent<TextMeshProUGUI>();
         myText.text = PlayerPrefs.GetString("PlayerName", "Player Name");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SubmitName()

@@ -591,7 +591,7 @@ PrefabInstance:
     - target: {fileID: 4039176702561135144, guid: 6d06cbb6c451fb14b93f3851ab1bb466,
         type: 3}
       propertyPath: thisIndex
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4039176702561135144, guid: 6d06cbb6c451fb14b93f3851ab1bb466,
         type: 3}
@@ -1341,8 +1341,8 @@ PrefabInstance:
     - target: {fileID: 6763751857084502934, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: Als de kracht van het schip toeneemt. Wat gebeurd er dan met de versnelling?
-        Versnelling is de verandering van snelheid.
+      value: "Welk schip haalt als eerste 75 m/s? \nm = massa, de eenheid is kilogram
+        (kg)\nF = kracht, de eenheid is Newton (N)"
       objectReference: {fileID: 0}
     - target: {fileID: 6763751857084502934, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
@@ -2482,7 +2482,7 @@ PrefabInstance:
     - target: {fileID: 4562482868696002943, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: '   A: De versnelling wordt groter'
+      value: "\tA: m = 1000 kg, F = 2000 N "
       objectReference: {fileID: 0}
     - target: {fileID: 4562482868696002943, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
@@ -2497,7 +2497,7 @@ PrefabInstance:
     - target: {fileID: 6101181013374126569, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: '   B:  De versnelling blijft gelijk'
+      value: "\tB:  m = 750 kg, F = 2000 N"
       objectReference: {fileID: 0}
     - target: {fileID: 6101181013374126569, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
@@ -2527,7 +2527,7 @@ PrefabInstance:
     - target: {fileID: 7546748243981646376, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
       propertyPath: m_text
-      value: '   C: De versnelling wordt kleiner'
+      value: "\tC: m = 500 kg, F = 1000 N"
       objectReference: {fileID: 0}
     - target: {fileID: 7546748243981646376, guid: c9e7521f4ab4b7949942870423c694f0,
         type: 3}
