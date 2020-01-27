@@ -16,6 +16,8 @@ TagManager:
   - ThrusterPowerSlider
   - Player1
   - GameManager
+  - input
+  - ExplainButton
   layers:
   - Default
   - TransparentFX

@@ -27,4 +27,9 @@ public class BackToMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Explains");
     }
+
+    public void ToUIExplain()
+    {
+        SceneManager.LoadScene("Besturing");
+    }
 }
