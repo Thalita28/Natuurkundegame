@@ -11,6 +11,13 @@ public class MissionMenuExecute : MonoBehaviour
     public GameObject[] levelMenu;
     public GameObject InputField;
     public GameObject LevelRecords;
+    private GameObject ExplainButton;
+
+    private void Start()
+    {
+        ExplainButton = GameObject.FindGameObjectWithTag("ExplainButton");
+        ExplainButton.SetActive(false);
+    }
 
     public void EditPlayerName()
     {
@@ -24,6 +31,7 @@ public class MissionMenuExecute : MonoBehaviour
     {
         bool menuState = levelMenu[0].activeSelf;
         levelMenu[0].SetActive(!menuState);
+        ExplainButton.SetActive(true);
 
         LevelRecords.SetActive(false);
 
@@ -37,6 +45,8 @@ public class MissionMenuExecute : MonoBehaviour
     {
         bool menuState = levelMenu[1].activeSelf;
         levelMenu[1].SetActive(!menuState);
+        ExplainButton.SetActive(true);
+
 
         LevelRecords.SetActive(false);
 
@@ -83,6 +93,12 @@ public class MissionMenuExecute : MonoBehaviour
         levelMenu[0].SetActive(false);
         levelMenu[1].SetActive(false);
         levelMenu[2].SetActive(false);
+        ExplainButton.SetActive(false);
+    }
+
+    public void OpenExplains()
+    {
+        SceneManager.LoadScene("Explains");
     }
 
 
