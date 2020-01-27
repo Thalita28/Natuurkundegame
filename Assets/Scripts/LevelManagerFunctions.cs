@@ -169,17 +169,23 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void LevelFail(string FailType)
     {
+
+        player.GetComponent<Playermovement2>().denyMovement();
+        panelText.text = "Helaas, niet gehaald. Probeer het op een andere manier!";
+
         if (!iscompleted)
         {
             if (FailType == "FuelGone")
                 panelText.text = "De brandstoftank is leeg. Het schip kan niet meer van snelheid en richting veranderen.";
 
+
             if (FailType == "OutOfBounds")
-                panelText.text = PlayerPrefs.GetString("PlayerName");
+                panelText.text = PlayerPrefs.GetString("PlayerName") + " volgende keer dichterbij de missie blijven!";
             //PlayerPrefs.GetString("PlayerName");
 
             if (FailType == "Crash")
-                panelText.text = "Lekker dan crashen";
+                panelText.text = "Oei! " + PlayerPrefs.GetString("PlayerName") +  ", je hebt iets geraakt, daar is het schip niet voor gemaakt!";
+            if (FailType == "WrongAnswer") panelText.text = "Dat klopt niet! Probeer het antwoord uit te vinden door het schip te gebruiken";
 
             panel.SetActive(true);
             PanelAnimator.SetBool("IsHidden", false);
@@ -218,6 +224,21 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void ExecuteAnswer(int answer)
     {
+
+
+        if (thisBlockLevel == 1 && thisIndex == 5)
+        {
+            if (answer == 2)
+            {
+                path = targets.Length;
+                PlayerOnTarget();
+            }
+            else LevelFail("WrongAnswer");
+
+
+            return;
+        }
+
         closePanel();
         if (thisIndex == 5 && thisBlockLevel == 0)
         {
@@ -308,6 +329,13 @@ public class LevelManagerFunctions : MonoBehaviour
 
     public void HidePanel()
     {
+        if (thisBlockLevel == 1 && thisIndex == 5)
+        {
+            player.GetComponent<Playermovement2>().allowMovement();
+            //player.GetComponent<Playermovement2>().OpenParameterPanel();
+        }
+    
+
         PanelAnimator.SetBool("IsHidden", true);
 
     }
