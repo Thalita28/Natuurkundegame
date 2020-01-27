@@ -17,7 +17,21 @@ public class HangerShopMenuExecute : MonoBehaviour
     public GameObject[] ColorButtons;
     public GameObject[] FuelStuff;
     public GameObject[] EngineStuff;
+    private int index = 1;
 
+
+
+    private void Start()
+    {
+        Picker.onValueChanged.AddListener(color =>
+        {
+            if (index == 0) Trusters.material.color = color;
+            else if (index == 1) Body.material.color = color;
+            else if (index == 2) Cockpit.material.color = color;
+
+
+        });
+    }
     public void BackToMainMenu()
     {  
          SceneManager.LoadScene("MissionMenu");
@@ -72,8 +86,8 @@ public class HangerShopMenuExecute : MonoBehaviour
 
     public void OpenEngineShop()
     {
-        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed",0)*2));
-        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power",0) * 10));
+        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed",0)));
+        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power",0) ));
 
         bool menuState = EngineStuff[0].activeSelf;
         int i;
@@ -97,19 +111,21 @@ public class HangerShopMenuExecute : MonoBehaviour
 
     public void TryOnTrusters()
     {
-        Trusters.material.color = Picker.CurrentColor;
+        index = 0;
        // GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
     public void TryOnCockPit()
     {
-        Cockpit.material.color = Picker.CurrentColor;
+        index = 2;
+   
         //GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
     
     public void TryOnBody()
     {
-        Body.material.color = Picker.CurrentColor;
+        index = 1;
+       
         //GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
@@ -148,26 +164,26 @@ public class HangerShopMenuExecute : MonoBehaviour
 
     public void UpgradePower()
     {
-        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("Power",0)* 10 )) - 1)
+        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("Power",0))) - 1)
         {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("Power", 0) * 10)));
-            PlayerPrefs.SetInt("Power", PlayerPrefs.GetInt("Power") + 5);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("Power", 0) )));
+            PlayerPrefs.SetInt("Power", PlayerPrefs.GetInt("Power") + 50);
         }
 
-        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power", 0) * 10));
+        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("Power", 0)));
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
 
     public void UpgradeMaxSpeed()
     {
-        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2)) - 1)
+        if (PlayerPrefs.GetInt("Coins") > (100 + (PlayerPrefs.GetInt("MaxSpeed", 0))) - 1)
         {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2)));
-            PlayerPrefs.SetInt("MaxSpeed", PlayerPrefs.GetInt("MaxSpeed") + 10);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - (100 + (PlayerPrefs.GetInt("MaxSpeed", 0))));
+            PlayerPrefs.SetInt("MaxSpeed", PlayerPrefs.GetInt("MaxSpeed") + 100);
         }
 
-        PowerCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) * 2));
+        MaxSpeedCost.text = "" + (100 + (PlayerPrefs.GetInt("MaxSpeed", 0) ));
         GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 

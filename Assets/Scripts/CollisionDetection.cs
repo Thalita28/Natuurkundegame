@@ -11,7 +11,7 @@ public class CollisionDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("MissionObject") && !other.CompareTag("Player") && !other.CompareTag("LevelBoundry"))
+        if (!other.CompareTag("MissionObject") && !other.CompareTag("Player1") &&  !other.CompareTag("StationPlatform") && !other.CompareTag("LevelBoundry"))
             MyEvent.Invoke();
 
 

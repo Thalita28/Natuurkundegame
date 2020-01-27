@@ -6,25 +6,23 @@ using UnityEngine;
 
 public class UICargoController : MonoBehaviour
 {
-    
+
+    public GameObject player;
+    private Rigidbody rb;
     private LevelManagerFunctions ManagerScript;
     public TextMeshProUGUI CargoNumbers;
-    // Start is called before the first frame update
     void Start()
     {
 
-        
-        ManagerScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelManagerFunctions>();
+      // player = GameObject.FindGameObjectWithTag("Player1");
+        rb = player.GetComponent<Rigidbody>();
+        ManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManagerFunctions>();
     }
 
 
-    // Update is called once per frame
     void Update()
     {
-        int massa = 100;
-        massa += ManagerScript.CargoAmount[1] * 50;
-        massa += ManagerScript.CargoAmount[2] * 100;
-        massa += ManagerScript.CargoAmount[3] * 150;
-        CargoNumbers.text = "" + ManagerScript.CargoAmount[1] + "        " + ManagerScript.CargoAmount[2] + "         " + ManagerScript.CargoAmount[3] +  "\n\nMassa schip: " + massa;
+      
+        CargoNumbers.text = "" + ManagerScript.CargoAmount[1] + "        " + ManagerScript.CargoAmount[2] + "         " + ManagerScript.CargoAmount[3] +  "\n\nmassa = " + (int)rb.mass + " kg";
     }
 }

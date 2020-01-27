@@ -4,16 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Start
-  - input
-  - menu0
-  - menu1
-  - menu2
+  - StationPlatform
   - MissionObject
-  - FinishTrigger
-  - LevelBoundry
-  - fuelbarsprite
+  - LevelBoundary
   - MinimapCamera
+  - LevelBoundry
+  - ParaPanel
+  - ThrusterPowerText
+  - MassText
+  - MassSlider
+  - ThrusterPowerSlider
+  - Player1
+  - GameManager
   layers:
   - Default
   - TransparentFX

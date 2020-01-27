@@ -30,17 +30,18 @@ public class MainMenuExecute : MonoBehaviour
             bool menuState = Opties[0].activeSelf;
             int i;
 
-            for (i = 0; i < Opties.Length; i++)
+            for (i = 0; i < Opties.Length-1; i++)
             {
                 Opties[i].SetActive(!menuState);
             }
+            Opties[1].SetActive(false);
 
             GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
     public void CompleteReset()
     {
-
+        Opties[1].SetActive(true);
         PlayerPrefs.SetInt("Coins", 5000);
 
         PlayerPrefs.SetInt("Power", 0);
@@ -62,6 +63,15 @@ public class MainMenuExecute : MonoBehaviour
             PlayerPrefs.SetInt("Score_0_"+i, -1);
             PlayerPrefs.SetInt("Fuel_0_" + i, -1);
             PlayerPrefs.SetFloat("Time_0_" + i, -1);
+            PlayerPrefs.SetFloat("ScoreTime_0_" + i,-1);
+        }
+
+        for (i = 1; i < 4; i++)
+        {
+            PlayerPrefs.SetInt("Score_1_" + i, -1);
+            PlayerPrefs.SetInt("Fuel_1_" + i, -1);
+            PlayerPrefs.SetFloat("Time_1_" + i, -1);
+            PlayerPrefs.SetFloat("ScoreTime_1_" + i, -1);
         }
 
         PlayerPrefs.SetString("PlayerName", "Name...");

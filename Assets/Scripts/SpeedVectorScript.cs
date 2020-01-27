@@ -11,7 +11,6 @@ public class SpeedVectorScript : MonoBehaviour
     public GameObject NegativeSpeedX;
     public GameObject SpeedGaugeScreen;
     public GameObject SpeedGaugeTrim;
-    public Material SpeedGaugeTrimmaterial;
     private int GageScale; //gelijk aan MaxSpeed
 
     private void Start()
