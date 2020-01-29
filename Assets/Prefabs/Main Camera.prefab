@@ -99,5 +99,5 @@ MonoBehaviour:
   Player: {fileID: 0}
   Boundary: 30
   speed: 300
-  zoomSpeed: 1000
+  zoomSpeed: 2000
   max_distance: 1000

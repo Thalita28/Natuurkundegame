@@ -42,7 +42,7 @@ public class MainMenuExecute : MonoBehaviour
     public void CompleteReset()
     {
         Opties[1].SetActive(true);
-        PlayerPrefs.SetInt("Coins", 5000);
+        PlayerPrefs.SetInt("Coins", 200);
 
         PlayerPrefs.SetInt("Power", 0);
         PlayerPrefs.SetInt("MaxSpeed", 0);
